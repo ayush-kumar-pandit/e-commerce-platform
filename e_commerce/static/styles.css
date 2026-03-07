@@ -3,6 +3,6 @@ body{
     color: beige;
 }
 h1,h2{
-    font-size: 20em;
-    align-content: center;
+    font-size: 2rem;
+    text-align: center;    
 }
