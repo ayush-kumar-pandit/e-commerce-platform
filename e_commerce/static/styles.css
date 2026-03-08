@@ -1,8 +1,6 @@
 body{
     background-color: rgb(43, 69, 91);
     color: beige;
-}
-h1,h2{
     font-size: 2rem;
     text-align: center;    
 }
