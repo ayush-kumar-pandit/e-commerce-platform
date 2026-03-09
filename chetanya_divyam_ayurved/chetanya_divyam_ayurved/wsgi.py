@@ -1,5 +1,5 @@
 """
-WSGI config for e_commerce project.
+WSGI config for chetanya_divyam_ayurved project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'e_commerce.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'chetanya_divyam_ayurved.settings')
 
 application = get_wsgi_application()
