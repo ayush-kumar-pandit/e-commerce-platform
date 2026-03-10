@@ -3,100 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prana Essentials | Ayurvedic Wellness</title>
+    <title>Veda Flora | Premium Ayurvedic Greens</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        h1, h2, h3 { font-family: 'Playfair Display', serif; }
-        .bg-earth { background-color: #F9F7F2; }
-        .text-sage { color: #4A5D4E; }
-        .bg-sage { background-color: #4A5D4E; }
+        body { font-family: 'Outfit', sans-serif; background-color: #f0f4f1; }
+        h1, h2, h3 { font-family: 'DM Serif Display', serif; }
+        .bg-forest { background-color: #1B3022; }
+        .text-forest { color: #1B3022; }
+        .bg-leaf { background-color: #3D5A45; }
+        .accent-mint { color: #88B04B; }
+        .border-mint { border-color: #88B04B; }
+        .card-glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); }
     </style>
 </head>
-<body class="bg-earth text-gray-800">
+<body class="text-slate-900">
 
-    <nav class="p-6 flex justify-between items-center max-w-7xl mx-auto">
-        <div class="text-2xl font-bold text-sage tracking-widest uppercase">Prana</div>
-        <div class="space-x-8 hidden md:flex font-medium text-sm uppercase tracking-wider">
-            <a href="#" class="hover:text-sage transition">Shop All</a>
-            <a href="#" class="hover:text-sage transition">Our Story</a>
-            <a href="#" class="hover:text-sage transition">Rituals</a>
-        </div>
-        <div class="flex items-center space-x-5">
-            <span class="cursor-pointer">Search</span>
-            <div class="relative">
-                <span class="cursor-pointer font-bold">Cart (0)</span>
+    <div class="bg-forest text-white text-[10px] uppercase tracking-[0.2em] py-2 text-center">
+        Free shipping on all Ayurvedic bundles over $50
+    </div>
+
+    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-green-100">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+            <div class="text-2xl font-bold text-forest tracking-tighter">VEDA<span class="text-green-600">FLORA.</span></div>
+            <div class="hidden md:flex space-x-10 font-medium text-sm text-forest uppercase tracking-widest">
+                <a href="#" class="hover:text-green-600 transition">Herbs</a>
+                <a href="#" class="hover:text-green-600 transition">Dosha Test</a>
+                <a href="#" class="hover:text-green-600 transition">About</a>
+            </div>
+            <div class="flex items-center gap-6">
+                <button class="hover:scale-110 transition">🔍</button>
+                <div class="bg-forest text-white px-4 py-2 rounded-full text-sm cursor-pointer hover:bg-leaf transition">
+                    Bag (0)
+                </div>
             </div>
         </div>
     </nav>
 
-    <header class="max-w-7xl mx-auto px-6 py-12 md:py-24 grid md:grid-cols-2 gap-12 items-center">
-        <div>
-            <span class="uppercase tracking-widest text-xs font-semibold text-sage">Ancient Wisdom, Modern Life</span>
-            <h1 class="text-5xl md:text-7xl mt-4 leading-tight">Find your inner <br><span class="italic">equilibrium.</span></h1>
-            <p class="mt-6 text-gray-600 max-w-md leading-relaxed">
-                Ethically sourced, lab-tested Ayurvedic supplements designed to restore balance to your Dosha.
-            </p>
-            <button class="mt-8 bg-sage text-white px-10 py-4 rounded-full hover:opacity-90 transition shadow-lg">
-                Explore the Collection
-            </button>
-        </div>
-        <div class="relative">
-            <div class="aspect-[4/5] bg-gray-200 rounded-2xl overflow-hidden shadow-2xl">
-                <img src="https://images.unsplash.com/photo-1615485290382-441e4d019cb0?auto=format&fit=crop&q=80&w=800" alt="Herbs" class="object-cover w-full h-full">
-            </div>
-        </div>
-    </header>
+    <section class="relative bg-forest overflow-hidden py-20 px-6">
+        <div class="absolute top-0 right-0 w-96 h-96 bg-leaf rounded-full blur-[120px] opacity-50 -mr-20"></div>
+        <div class="absolute bottom-0 left-0 w-64 h-64 bg-green-900 rounded-full blur-[100px] opacity-50 -ml-10"></div>
 
-    <section class="max-w-7xl mx-auto px-6 py-20">
-        <h2 class="text-3xl mb-12">Featured Supplement</h2>
-        
-        <div class="grid md:grid-cols-2 gap-16 bg-white p-8 md:p-12 rounded-3xl shadow-sm border border-stone-100">
-            <div class="bg-earth rounded-xl flex items-center justify-center p-12">
-                <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&q=80&w=600" alt="Ashwagandha Powder" class="mix-blend-multiply drop-shadow-2xl">
-            </div>
-
-            <div class="flex flex-col justify-center">
-                <div class="flex items-center space-x-2 text-yellow-600 mb-4">
-                    <span>★★★★★</span>
-                    <span class="text-xs text-gray-400 uppercase tracking-tighter">(48 Reviews)</span>
-                </div>
-                <h3 class="text-4xl mb-2 text-sage">Organic Ashwagandha</h3>
-                <p class="text-2xl font-light text-gray-500 mb-6">$24.00</p>
-                
-                <p class="text-gray-600 leading-relaxed mb-8">
-                    Known as the "King of Herbs," our Ashwagandha is sustainably harvested from the roots to help your body manage stress and maintain energy levels. 100% Vegan & Non-GMO.
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center relative z-10">
+            <div class="text-white">
+                <h1 class="text-6xl md:text-8xl leading-none">Nature's <br>Own <span class="text-green-400 italic">Healing.</span></h1>
+                <p class="mt-8 text-green-100/80 text-lg max-w-md font-light leading-relaxed">
+                    Sustainably farmed, high-potency supplements rooted in 5,000 years of Vedic science.
                 </p>
+                <div class="mt-10 flex gap-4">
+                    <button class="bg-green-500 hover:bg-green-400 text-forest px-8 py-4 rounded-full font-bold transition">
+                        Shop Supplements
+                    </button>
+                    <button class="border border-green-200 text-white px-8 py-4 rounded-full font-bold hover:bg-white/10 transition">
+                        Our Process
+                    </button>
+                </div>
+            </div>
+            <div class="hidden md:block">
+                <img src="https://images.unsplash.com/photo-1544145945-f904253d0c71?auto=format&fit=crop&q=80&w=800" 
+                     alt="Green leaves" class="rounded-[40px] shadow-2xl rotate-3 hover:rotate-0 transition-transform duration-700">
+            </div>
+        </div>
+    </section>
 
-                <div class="mb-8">
-                    <span class="text-xs font-bold uppercase tracking-widest block mb-3">Key Benefits</span>
-                    <ul class="grid grid-cols-2 gap-2 text-sm text-gray-600">
-                        <li>✓ Reduces Cortisol</li>
-                        <li>✓ Promotes Restful Sleep</li>
-                        <li>✓ Boosts Immunity</li>
-                        <li>✓ Enhances Focus</li>
-                    </ul>
+    <section class="max-w-7xl mx-auto px-6 -mt-16 relative z-20">
+        <div class="bg-white rounded-[3rem] p-8 md:p-16 shadow-xl border border-green-50">
+            <div class="flex flex-col md:flex-row gap-16">
+                
+                <div class="md:w-1/2 group">
+                    <div class="bg-[#f3f7f4] rounded-[2rem] p-12 relative overflow-hidden">
+                        <div class="absolute top-4 left-4 bg-green-200 text-green-800 text-[10px] font-bold px-3 py-1 rounded-full uppercase">Best Seller</div>
+                        <img src="https://images.unsplash.com/photo-1611073244118-ce9413242eef?auto=format&fit=crop&q=80&w=600" 
+                             alt="Triphala Powder" 
+                             class="w-full mix-blend-multiply transition-transform duration-500 group-hover:scale-110">
+                    </div>
                 </div>
 
-                <div class="flex space-x-4">
-                    <input type="number" value="1" class="w-16 border rounded-full text-center border-gray-300">
-                    <button class="flex-1 bg-sage text-white py-4 rounded-full font-semibold hover:bg-stone-700 transition">
-                        Add to Cart
-                    </button>
+                <div class="md:w-1/2 flex flex-col justify-center">
+                    <span class="text-green-600 font-semibold tracking-widest uppercase text-xs mb-2 italic">Ancient Digestive Formula</span>
+                    <h2 class="text-5xl text-forest mb-4">Organic Triphala</h2>
+                    <p class="text-3xl font-light text-slate-400 mb-8">$28.00</p>
+                    
+                    <p class="text-slate-600 leading-relaxed mb-8">
+                        A legendary blend of three fruits (Amalaki, Bibhitaki, and Haritaki). Known in Ayurveda for cleansing the system while nourishing the digestive tract.
+                    </p>
+
+                    <div class="space-y-4 mb-10">
+                        <div class="flex items-center gap-3">
+                            <span class="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center text-green-600 text-xs">✓</span>
+                            <span class="text-sm font-medium text-slate-700">Gentle Daily Detoxification</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center text-green-600 text-xs">✓</span>
+                            <span class="text-sm font-medium text-slate-700">High Vitamin C Content</span>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <div class="flex items-center border border-slate-200 rounded-full px-4 py-2">
+                            <button class="px-2 text-slate-400 hover:text-forest">-</button>
+                            <input type="text" value="1" class="w-12 text-center bg-transparent focus:outline-none font-bold" readonly>
+                            <button class="px-2 text-slate-400 hover:text-forest">+</button>
+                        </div>
+                        <button class="flex-1 bg-forest text-white py-4 rounded-full font-bold shadow-lg hover:shadow-green-200/50 transition-all active:scale-95">
+                            Add to Daily Ritual
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer class="bg-sage text-stone-200 py-12 px-6 mt-12">
-        <div class="max-w-7xl mx-auto text-center border-b border-stone-600 pb-8 mb-8">
-            <p class="italic">"Health is the greatest gift, contentment the greatest wealth."</p>
+    <section class="max-w-4xl mx-auto px-6 py-24 text-center">
+        <h3 class="text-3xl text-forest mb-4">Pure Ingredients. Pure Results.</h3>
+        <p class="text-slate-500 mb-8">Join 20,000+ others finding balance. Get 10% off your first order.</p>
+        <div class="flex flex-col sm:flex-row gap-2 max-w-md mx-auto">
+            <input type="email" placeholder="Email address" class="flex-1 px-6 py-4 rounded-full border border-green-100 focus:outline-none focus:ring-2 focus:ring-green-400">
+            <button class="bg-leaf text-white px-8 py-4 rounded-full font-semibold">Join</button>
         </div>
-        <div class="text-center text-xs tracking-widest uppercase">
-            © 2026 Prana Essentials. Rooted in Nature.
-        </div>
-    </footer>
+    </section>
 
 </body>
 </html>
