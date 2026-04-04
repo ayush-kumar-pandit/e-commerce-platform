@@ -8,3 +8,5 @@ class user_data(models.Model):
     phone = models.BigIntegerField()
     email = models.EmailField(max_length=254)
     address = models.TextField()
+    gender = models.TextField()
+    age = models.IntegerField()
