@@ -1,12 +1,148 @@
+{% load static %}
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Home | Chaitanya Divyam Ayurved</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-      <h1 class="title">Home Page!!</h1>
-      <p id="currentTime"></p>
-      <script src="script.js"></script>
-  </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VedaModern | Ancient Wisdom, Modern Vitality</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href= {% static "css/home.css" %} rel = "stylesheet">
+</head>
+<body class="bg-cream text-gray-800">
+
+    <nav class="flex justify-between items-center px-8 py-6 max-w-7xl mx-auto">
+        <div class="text-2xl font-bold text-ayur-green tracking-tight">
+            VEDA<span class="font-light text-gray-400">MODERN</span>
+        </div>
+        
+        <div class="hidden md:flex space-x-8 text-sm uppercase tracking-widest font-medium">
+            <a href="#" class="hover:text-gray-500 transition">Shop</a>
+            <a href="#" class="hover:text-gray-500 transition">Our Science</a>
+            <a href="#" class="hover:text-gray-500 transition">Dosha Quiz</a>
+            <a href="#" class="hover:text-gray-500 transition">About</a>
+        </div>
+          
+        <div class="flex items-center gap-x-2">
+            <a href="user/register" class="border border-ayur-green px-5 py-2 text-xs uppercase tracking-widest hover:bg-ayur-green hover:text-white transition duration-300">
+                Register
+            </a>
+            <a href="user/login" class="border border-ayur-green px-5 py-2 text-xs uppercase tracking-widest hover:bg-ayur-green hover:text-white transition duration-300">
+                Login
+            </a>
+        </div>
+    </nav>
+
+    <header class="relative max-w-7xl mx-auto px-8 py-16 md:py-24 grid md:grid-cols-2 gap-12 items-center">
+        <div class="z-10">
+            <span class="text-sm uppercase tracking-[0.3em] text-gray-500 mb-4 block underline decoration-gold">Rooted in Tradition</span>
+            <h1 class="text-5xl md:text-7xl mb-6 leading-tight text-ayur-green">Timeless Wisdom. <br><span class="italic">Modern Vitality.</span></h1>
+            <p class="text-lg text-gray-600 mb-8 max-w-md leading-relaxed">
+                Experience the world's oldest healing science, reformulated for the demands of the 21st century. Pure, potent, and ethically sourced.
+            </p>
+            <div class="flex space-x-4">
+                <a href="#" class="bg-ayur-green text-white px-8 py-4 rounded-sm hover:shadow-lg transition">Shop Bestsellers</a>
+                <a href="#" class="border border-gray-300 px-8 py-4 rounded-sm hover:bg-white transition">Take the Quiz</a>
+            </div>
+        </div>
+        <div class="relative">
+            <div class="absolute -inset-4 bg-ayur-green/5 rounded-full blur-3xl"></div>
+            <img src="https://images.unsplash.com/photo-1611073103930-9759e6931f7c?auto=format&fit=crop&q=80&w=800" alt="Ayurvedic Supplement" class="relative rounded-lg shadow-2xl">
+        </div>
+    </header>
+
+    <section class="bg-white py-20 border-y border-gray-100">
+        <div class="max-w-7xl mx-auto px-8 grid md:grid-cols-3 gap-16 text-center">
+            <div>
+                <div class="text-3xl mb-4 italic text-ayur-green">01</div>
+                <h3 class="text-xl font-bold mb-2 uppercase tracking-tighter">Wild Harvested</h3>
+                <p class="text-gray-500 text-sm">Sourced directly from sustainable farms in the Himalayan foothills.</p>
+            </div>
+            <div>
+                <div class="text-3xl mb-4 italic text-ayur-green">02</div>
+                <h3 class="text-xl font-bold mb-2 uppercase tracking-tighter">Bio-Available</h3>
+                <p class="text-gray-500 text-sm">Optimized with modern extraction for maximum nutrient absorption.</p>
+            </div>
+            <div>
+                <div class="text-3xl mb-4 italic text-ayur-green">03</div>
+                <h3 class="text-xl font-bold mb-2 uppercase tracking-tighter">Lab Verified</h3>
+                <p class="text-gray-500 text-sm">Every batch is tested for purity, heavy metals, and potency.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="max-w-7xl mx-auto px-8 py-24">
+        <div class="flex justify-between items-end mb-12">
+            <div>
+                <h2 class="text-4xl text-ayur-green">Daily Rituals</h2>
+                <p class="text-gray-500 italic">Curated for your specific constitution.</p>
+            </div>
+            <a href="#" class="text-sm underline tracking-widest uppercase">View All</a>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="group cursor-pointer">
+                <div class="overflow-hidden bg-gray-100 mb-4 aspect-[4/5] flex items-center justify-center">
+                    <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&q=80&w=600" class="group-hover:scale-105 transition duration-700">
+                </div>
+                <h3 class="text-lg font-semibold">The Ashwagandha Complex</h3>
+                <p class="text-gray-500 text-sm mb-2 italic text-gold-600 font-serif">Adaptogenic Calm</p>
+                <p class="text-ayur-green font-bold">$34.00</p>
+            </div>
+            <div class="group cursor-pointer">
+                <div class="overflow-hidden bg-gray-100 mb-4 aspect-[4/5] flex items-center justify-center">
+                    <img src="https://images.unsplash.com/photo-1615485290382-441e4d019cb5?auto=format&fit=crop&q=80&w=600" class="group-hover:scale-105 transition duration-700">
+                </div>
+                <h3 class="text-lg font-semibold">Golden Curcumin Blend</h3>
+                <p class="text-gray-500 text-sm mb-2 italic text-gold-600 font-serif">Bio-active Inflammation Support</p>
+                <p class="text-ayur-green font-bold">$28.00</p>
+            </div>
+            <div class="group cursor-pointer">
+                <div class="overflow-hidden bg-gray-100 mb-4 aspect-[4/5] flex items-center justify-center">
+                    <img src="https://images.unsplash.com/photo-1471193945509-9ad0617afabf?auto=format&fit=crop&q=80&w=600" class="group-hover:scale-105 transition duration-700">
+                </div>
+                <h3 class="text-lg font-semibold">Triphala Cleanse</h3>
+                <p class="text-gray-500 text-sm mb-2 italic text-gold-600 font-serif">Gentle Detoxification</p>
+                <p class="text-ayur-green font-bold">$31.00</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-ayur-green text-white py-16 px-8">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-12">
+            <div class="col-span-2">
+                <div class="text-2xl font-bold mb-6 tracking-tight">VEDAMODERN</div>
+                <p class="text-gray-300 max-w-sm mb-8">
+                    Join our journey toward conscious living and holistic health. Get Ayurvedic tips and early access to new releases.
+                </p>
+                <form class="flex border-b border-gray-500 pb-2 max-w-sm">
+                    <input type="email" placeholder="Email Address" class="bg-transparent border-none text-white focus:outline-none flex-grow text-sm">
+                    <button type="submit" class="uppercase text-xs tracking-widest font-bold">Join</button>
+                </form>
+            </div>
+            <div>
+                <h4 class="font-bold mb-6 uppercase text-xs tracking-widest text-gold-500">Navigation</h4>
+                <ul class="space-y-4 text-sm text-gray-300">
+                    <li><a href="#" class="hover:text-white transition">The Doshas</a></li>
+                    <li><a href="#" class="hover:text-white transition">Ingredients</a></li>
+                    <li><a href="#" class="hover:text-white transition">Sustainability</a></li>
+                    <li><a href="#" class="hover:text-white transition">Wholesale</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold mb-6 uppercase text-xs tracking-widest text-gold-500">Support</h4>
+                <ul class="space-y-4 text-sm text-gray-300">
+                    <li><a href="#" class="hover:text-white transition">Shipping Policy</a></li>
+                    <li><a href="#" class="hover:text-white transition">Contact Us</a></li>
+                    <li><a href="#" class="hover:text-white transition">Terms & Privacy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto mt-16 pt-8 border-t border-gray-700 text-xs text-gray-400 flex justify-between">
+            <p>&copy; 2026 VedaModern Supplements. All rights reserved.</p>
+            <p>Formulated with Science, Rooted in Nature.</p>
+        </div>
+    </footer>
+
+</body>
 </html>
