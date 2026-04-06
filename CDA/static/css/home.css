@@ -1,20 +1,143 @@
-body {
-  font-family: "Inter", sans-serif;
+/* Fonts */
+body{
+font-family:'Inter',sans-serif;
 }
-h1,
-h2,
-h3 {
-  font-family: "Playfair Display", serif;
+
+/* Colors */
+
+.bg-cream{
+background:#f9f7f2;
 }
-.bg-cream {
-  background-color: #fdfbf7;
+
+.text-ayur-green{
+color:#1f5f4a;
 }
-.text-ayur-green {
-  color: #2d5a27;
+
+.bg-ayur-green{
+background:#1f5f4a;
 }
-.bg-ayur-green {
-  background-color: #2d5a27;
+
+.decoration-gold{
+text-decoration-color:#d4af37;
 }
-.border-gold {
-  border-color: #c5a059;
+
+/* ========================= */
+/* HERO FADE ANIMATION */
+/* ========================= */
+
+@keyframes fadeUp{
+
+from{
+opacity:0;
+transform:translateY(40px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+.fade-up{
+animation:fadeUp 1s ease forwards;
+}
+
+/* ========================= */
+/* FLOATING IMAGE */
+/* ========================= */
+
+@keyframes floatImage{
+
+0%{
+transform:translateY(0px);
+}
+
+50%{
+transform:translateY(-12px);
+}
+
+100%{
+transform:translateY(0px);
+}
+
+}
+
+.float-img{
+animation:floatImage 5s ease-in-out infinite;
+}
+
+/* ========================= */
+/* PRODUCT CARD ANIMATION */
+/* ========================= */
+
+.product-card{
+transition:transform .4s ease, box-shadow .4s ease;
+}
+
+.product-card:hover{
+transform:translateY(-10px) scale(1.02);
+box-shadow:0 20px 40px rgba(0,0,0,0.08);
+}
+
+/* ========================= */
+/* SCROLL REVEAL */
+/* ========================= */
+
+.reveal{
+opacity:0;
+transform:translateY(50px);
+transition:all .8s ease;
+}
+
+.reveal.active{
+opacity:1;
+transform:translateY(0);
+}
+
+/* ========================= */
+/* BUTTON HOVER EFFECT */
+/* ========================= */
+
+button{
+transition:all .3s ease;
+}
+
+button:hover{
+transform:translateY(-2px);
+}
+
+/* ========================= */
+/* IMAGE STYLING */
+/* ========================= */
+
+img{
+transition:transform .4s ease;
+}
+
+img:hover{
+transform:scale(1.03);
+}
+
+/* ========================= */
+/* NAV LINK HOVER */
+/* ========================= */
+
+nav a{
+position:relative;
+}
+
+nav a::after{
+content:"";
+position:absolute;
+width:0%;
+height:2px;
+bottom:-4px;
+left:0;
+background:#1f5f4a;
+transition:width .3s ease;
+}
+
+nav a:hover::after{
+width:100%;
 }
