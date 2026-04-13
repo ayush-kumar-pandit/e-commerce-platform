@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logout | Chaitanya Divyam</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-stone-50 min-h-screen flex items-center justify-center px-4">
+
+    <div class="w-full max-w-md bg-white shadow-xl rounded-lg p-10 text-center">
+        <h1 class="text-3xl font-bold text-green-800 mb-4">
+            Logout
+        </h1>
+
+        <p class="text-gray-600 mb-8">
+            Are you sure you want to log out?
+        </p>
+
+        <form method="POST">
+            {% csrf_token %}
+            <div class="flex justify-center gap-4">
+                <a href="{% url 'home' %}"
+                   class="border border-green-800 text-green-800 px-6 py-2 rounded hover:bg-green-800 hover:text-white transition">
+                    Cancel
+                </a>
+
+                <button type="submit"
+                        class="bg-green-800 text-white px-6 py-2 rounded hover:bg-green-900 transition">
+                    Yes, Logout
+                </button>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
