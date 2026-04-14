@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ChaitanyaDivyam | Ancient Wisdom, Modern Vitality</title>
+<title>Bharat Sanjeevani Ayurveda | Ancient Wisdom, Modern Vitality</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 
@@ -20,7 +20,7 @@
 <nav class="flex justify-between items-center px-8 py-6 max-w-7xl mx-auto">
 
     <div class="text-2xl font-bold text-ayur-green tracking-tight">
-        CHAITANYA<span class="font-light text-gray-400">DIVYAM</span>
+        BHARAT<span class="font-light text-gray-400">SANJEEVANI</span>AYURVEDA
     </div>
 
     <div class="hidden md:flex space-x-8 text-sm uppercase tracking-widest font-medium">
@@ -188,33 +188,68 @@
 <!-- FOOTER -->
 <footer class="bg-ayur-green text-white py-16 px-8">
 
-    <div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-12">
-        <div class="col-span-2">
+    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12">
+
+        <!-- Contact Details -->
+        <div>
             <div class="text-2xl font-bold mb-6 tracking-tight">
-                VEDAMODERN
+                CHAITANYA<span class="font-light text-gray-300">DIVYAM</span>
             </div>
 
-            <p class="text-gray-300 max-w-sm mb-8">
-                Join our journey toward conscious living and holistic health.
-                Get Ayurvedic tips and early access to new releases.
+            <p class="text-gray-200 mb-6 max-w-md leading-relaxed">
+                We are here to guide you toward conscious living and holistic wellness.
+                Reach out to us for product enquiries, consultations, or partnerships.
             </p>
 
-            <form class="flex border-b border-gray-500 pb-2 max-w-sm">
+            <div class="space-y-3 text-sm text-gray-200">
+                <p><span class="font-semibold text-white">Address:</span> 123 Ayur Wellness Street, New Delhi, India</p>
+                <p><span class="font-semibold text-white">Phone:</span> +91 98765 43210</p>
+                <p><span class="font-semibold text-white">Email:</span> support@chaitanyadivyam.com</p>
+                <p><span class="font-semibold text-white">Working Hours:</span> Mon - Sat, 9:00 AM - 6:00 PM</p>
+            </div>
+        </div>
+
+        <!-- Enquiry Form -->
+        <div>
+            <h3 class="text-xl font-semibold mb-6 uppercase tracking-wider">
+                Send an Enquiry
+            </h3>
+
+            <form method="POST" action="" class="space-y-4">
+                {% csrf_token %}
+
+                <input type="text"
+                       name="name"
+                       placeholder="Your Name"
+                       class="w-full px-4 py-3 rounded bg-white text-gray-800 focus:outline-none">
+
                 <input type="email"
-                       placeholder="Email Address"
-                       class="bg-transparent border-none text-white focus:outline-none flex-grow text-sm">
+                       name="email"
+                       placeholder="Your Email"
+                       class="w-full px-4 py-3 rounded bg-white text-gray-800 focus:outline-none">
+
+                <input type="text"
+                       name="subject"
+                       placeholder="Subject"
+                       class="w-full px-4 py-3 rounded bg-white text-gray-800 focus:outline-none">
+
+                <textarea name="message"
+                          rows="4"
+                          placeholder="Write your enquiry..."
+                          class="w-full px-4 py-3 rounded bg-white text-gray-800 focus:outline-none"></textarea>
 
                 <button type="submit"
-                        class="uppercase text-xs tracking-widest font-bold">
-                    Join
+                        class="bg-white text-ayur-green px-6 py-3 rounded font-semibold hover:bg-gray-100 transition">
+                    Submit Enquiry
                 </button>
             </form>
         </div>
+
     </div>
 
-    <div class="max-w-7xl mx-auto mt-16 pt-8 border-t border-gray-700 text-xs text-gray-400 flex justify-between">
-        <p>© 2026 VedaModern Supplements. All rights reserved.</p>
-        <p>Formulated with Science, Rooted in Nature.</p>
+    <div class="max-w-7xl mx-auto mt-12 pt-6 border-t border-gray-500 text-xs text-gray-200 flex flex-col md:flex-row justify-between gap-4">
+        <p>© 2026 Chaitanya Divyam. All rights reserved.</p>
+        <p>Ancient Wisdom. Modern Vitality.</p>
     </div>
 
 </footer>
