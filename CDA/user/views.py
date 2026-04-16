@@ -1,12 +1,13 @@
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout as auth_logout
-from django.shortcuts import render, redirect, get_object_or_404
-from user_app.models import user_data, Cart
+
+from .models import Cart, CartItem
+from productapp.models import Product   
+
 
 def register_view(request):
     if request.method == "POST":
@@ -77,16 +78,11 @@ def logout_view(request):
 
     return render(request, "logout.html")
 
+
+@login_required
 def cart_view(request):
-    user_id = request.session.get("user_id")
-
-    if not user_id:
-        return redirect("login")
-
-    current_user = get_object_or_404(user_data, id=user_id)
-    cart, created = Cart.objects.get_or_create(user=current_user)
+    cart, created = Cart.objects.get_or_create(user=request.user)
     items = cart.items.all()
-
     total = sum(item.total_price for item in items)
 
     return render(request, "cart.html", {
@@ -94,6 +90,30 @@ def cart_view(request):
         "total": total
     })
 
-def add_to_cart(request):
-    return HttpResponse("Add To Cart")
 
+@login_required
+def add_to_cart(request, product_id):
+    if request.method == "POST":
+        product = get_object_or_404(Product, id=product_id)
+
+        cart, created = Cart.objects.get_or_create(user=request.user)
+
+        cart_item = CartItem.objects.filter(cart=cart, product_id=product.id).first()
+
+        if cart_item:
+            cart_item.quantity += 1
+            cart_item.save()
+        else:
+            CartItem.objects.create(
+                cart=cart,
+                product_id=product.id,
+                product_name=product.name,
+                product_price=product.price,
+                product_image=product.image,
+                quantity=1
+            )
+
+        messages.success(request, f"{product.name} added to cart.")
+        return redirect("home")
+
+    return redirect("home")
