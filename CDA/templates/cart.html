@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cart</title>
+</head>
+<body>
+    <h2>Your Cart</h2>
+
+    {% for item in items %}
+        <div style="margin-bottom:20px; border:1px solid #ccc; padding:10px;">
+            <h3>{{ item.product.name }}</h3>
+            <p>{{ item.product.description }}</p>
+            <p>Price: ₹{{ item.product.price }}</p>
+            <p>Quantity: {{ item.quantity }}</p>
+            <p>Total: ₹{{ item.product.price|floatformat:2 }}</p>
+        </div>
+    {% empty %}
+        <p>Your cart is empty.</p>
+    {% endfor %}
+</body>
+</html>

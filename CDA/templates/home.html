@@ -36,6 +36,11 @@
                class="border border-ayur-green px-5 py-2 text-xs uppercase tracking-widest hover:bg-ayur-green hover:text-white transition duration-300">
                 Profile
             </a>
+
+            <a href="{% url 'cart' %}"
+               class="border border-ayur-green px-5 py-2 text-xs uppercase tracking-widest hover:bg-ayur-green hover:text-white transition duration-300">
+                Cart
+            </a>
         {% else %}
             <a href="{% url 'register' %}"
                class="border border-ayur-green px-5 py-2 text-xs uppercase tracking-widest hover:bg-ayur-green hover:text-white transition duration-300">
@@ -175,9 +180,20 @@
                     ₹{{ product.price }}
                 </p>
 
-                <button class="bg-ayur-green text-white px-5 py-2 rounded hover:shadow-lg">
-                    Add to Cart
-                </button>
+                {% if user.is_authenticated %}
+                    <form method="POST" action="{% url 'add_to_cart' product.id %}">
+                        {% csrf_token %}
+                        <button type="submit"
+                                class="bg-ayur-green text-white px-5 py-2 rounded hover:shadow-lg transition">
+                            Add to Cart
+                        </button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'login' %}"
+                       class="inline-block bg-ayur-green text-white px-5 py-2 rounded hover:shadow-lg transition">
+                        Login to Add
+                    </a>
+                {% endif %}
             </div>
         {% endfor %}
     </div>
