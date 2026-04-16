@@ -1,9 +1,12 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout as auth_logout
+from django.shortcuts import render, redirect, get_object_or_404
+from user_app.models import user_data, Cart
 
 def register_view(request):
     if request.method == "POST":
@@ -73,3 +76,24 @@ def logout_view(request):
         return redirect("home")
 
     return render(request, "logout.html")
+
+def cart_view(request):
+    user_id = request.session.get("user_id")
+
+    if not user_id:
+        return redirect("login")
+
+    current_user = get_object_or_404(user_data, id=user_id)
+    cart, created = Cart.objects.get_or_create(user=current_user)
+    items = cart.items.all()
+
+    total = sum(item.total_price for item in items)
+
+    return render(request, "cart.html", {
+        "items": items,
+        "total": total
+    })
+
+def add_to_cart(request):
+    return HttpResponse("Add To Cart")
+
