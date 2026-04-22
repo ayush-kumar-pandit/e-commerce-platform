@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout as auth_logout
 
 from .models import Cart, CartItem
-from productapp.models import Product   
+from home.models import products   
 
 
 def register_view(request):
