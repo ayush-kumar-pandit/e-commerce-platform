@@ -37,23 +37,23 @@
                         <div class="grid grid-cols-1 sm:grid-cols-12 items-center px-6 py-6 gap-4 sm:gap-0 hover:bg-gray-50 transition">
                             <!-- Product Info -->
                             <div class="col-span-1 sm:col-span-6 flex items-center gap-4">
-                                {% if item.product_image %}
-                                    <img src="/media/{{ item.product_image }}" alt="{{ item.product_name }}" class="w-20 h-20 object-cover rounded-lg shadow-sm border border-gray-100">
+                                {% if item.product.image %}
+                                    <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="w-20 h-20 object-cover rounded-lg shadow-sm border border-gray-100">
                                 {% else %}
                                     <div class="w-20 h-20 bg-gray-100 rounded-lg flex items-center justify-center border border-gray-200">
                                         <span class="text-gray-400 text-xs">No Image</span>
                                     </div>
                                 {% endif %}
                                 <div>
-                                    <h3 class="font-bold text-lg text-gray-900">{{ item.product_name }}</h3>
-                                    <p class="text-xs text-gray-500 uppercase tracking-wider mt-1">Item #{{ item.product_id }}</p>
+                                    <h3 class="font-bold text-lg text-gray-900">{{ item.product.name }}</h3>
+                                    <p class="text-xs text-gray-500 uppercase tracking-wider mt-1">Item #{{ item.product.id }}</p>
                                 </div>
                             </div>
                             
                             <!-- Price -->
                             <div class="col-span-1 sm:col-span-2 sm:text-center text-gray-600 font-medium">
                                 <span class="sm:hidden text-xs text-gray-400 uppercase tracking-wider mr-2">Price:</span>
-                                ₹{{ item.product_price }}
+                                ₹{{ item.product.price }}
                             </div>
 
                             <!-- Quantity -->
