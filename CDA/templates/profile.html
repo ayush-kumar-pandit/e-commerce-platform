@@ -48,12 +48,17 @@
 
         <div class="flex flex-col sm:flex-row justify-center gap-4 mt-6">
             <a href="{% url 'home' %}"
-               class="w-full sm:w-auto text-center border-2 border-green-800 text-green-800 px-8 py-3 rounded-xl hover:bg-green-50 hover:shadow-md transition-all duration-300 font-semibold">
+               class="w-full sm:w-auto text-center border-2 border-green-800 text-green-800 px-6 py-3 rounded-xl hover:bg-green-50 hover:shadow-md transition-all duration-300 font-semibold">
                 Back to Home
             </a>
 
+            <a href="{% url 'change_password' %}"
+               class="w-full sm:w-auto text-center bg-yellow-500 text-white px-6 py-3 rounded-xl hover:bg-yellow-600 hover:shadow-md transition-all duration-300 font-semibold">
+                Change Password
+            </a>
+
             <a href="{% url 'logout' %}"
-               class="w-full sm:w-auto text-center bg-red-600 text-white px-8 py-3 rounded-xl hover:bg-red-700 hover:shadow-md transition-all duration-300 font-semibold">
+               class="w-full sm:w-auto text-center bg-red-600 text-white px-6 py-3 rounded-xl hover:bg-red-700 hover:shadow-md transition-all duration-300 font-semibold">
                 Logout
             </a>
         </div>

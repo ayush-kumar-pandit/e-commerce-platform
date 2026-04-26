@@ -1,10 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout as auth_logout
-
 from .models import Cart, CartItem, user_data
 from home.models import products
 
@@ -132,5 +131,32 @@ def add_to_cart(request, product_id):
 
         messages.success(request, f"{product.name} added to cart.")
         return redirect("cart_view")
-
     return redirect("home")
+
+
+@login_required
+def change_password_view(request):
+    if request.method == "POST":
+        old_password = request.POST.get("old_password", "")
+        new_password = request.POST.get("new_password", "")
+        confirm_password = request.POST.get("confirm_password", "")
+
+        if not old_password or not new_password or not confirm_password:
+            messages.error(request, "All fields are required.")
+            return render(request, "change_password.html")
+
+        if not request.user.check_password(old_password):
+            messages.error(request, "Incorrect old password.")
+            return render(request, "change_password.html")
+
+        if new_password != confirm_password:
+            messages.error(request, "New passwords do not match.")
+            return render(request, "change_password.html")
+
+        request.user.set_password(new_password)
+        request.user.save()
+        update_session_auth_hash(request, request.user)
+        messages.success(request, "Password changed successfully.")
+        return redirect("profile")
+
+    return render(request, "change_password.html")

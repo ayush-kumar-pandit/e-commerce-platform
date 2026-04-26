@@ -10,4 +10,5 @@ urlpatterns = [
     path('add-to-cart/<int:product_id>/', add_to_cart, name='add_to_cart'),
 
 
+    path('change-password/', change_password_view, name='change_password'),
 ]
