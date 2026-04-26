@@ -46,21 +46,33 @@ def register_view(request):
 
 def login_view(request):
     if request.method == "POST":
-        username = request.POST.get("username", "").strip()
+        credential = request.POST.get("credential", "").strip()
         password = request.POST.get("password", "")
 
-        if not username or not password:
-            messages.error(request, "Please enter both username and password.")
+        if not credential or not password:
+            messages.error(request, "Please enter your email or phone number, and password.")
             return render(request, "login.html")
 
-        user = authenticate(request, username=username, password=password)
+        user_obj = User.objects.filter(email=credential).first()
+
+        if not user_obj:
+            try:
+                ud = user_data.objects.get(phone=credential)
+                user_obj = User.objects.filter(username=ud.user_name).first()
+            except (user_data.DoesNotExist, ValueError):
+                user_obj = None
+
+        if user_obj:
+            user = authenticate(request, username=user_obj.username, password=password)
+        else:
+            user = None
 
         if user is not None:
             login(request, user)
             messages.success(request, f"Welcome back, {user.username}!")
             return redirect("home")
         else:
-            messages.error(request, "Invalid username or password.")
+            messages.error(request, "Invalid credential or password.")
             return render(request, "login.html")
 
     return render(request, "login.html")
