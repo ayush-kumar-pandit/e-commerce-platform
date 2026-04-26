@@ -5,64 +5,234 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile | Bharat Sanjeevani</title>
-
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .playfair { font-family: 'Playfair Display', serif; }
+    </style>
 </head>
-<body class="bg-stone-50 min-h-screen flex items-center justify-center px-4">
 
-    <div class="bg-white shadow-xl rounded-2xl p-8 w-full max-w-lg border border-gray-100">
-        <h1 class="text-3xl font-extrabold text-green-900 mb-6 text-center border-b border-gray-200 pb-4">
-            Profile Details
-        </h1>
+<body class="bg-stone-50 min-h-screen flex flex-col">
 
-        <div class="space-y-5 mb-8 text-left">
-            <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
-                <p class="text-xs text-green-800 font-bold uppercase tracking-wider mb-1">Username</p>
-                <p class="text-lg text-gray-900 font-medium">{{ request.user.username }}</p>
-            </div>
+    <!-- NAVBAR -->
+    <nav class="flex justify-between items-center px-8 py-6 max-w-7xl mx-auto w-full">
+        <a href="{% url 'home' %}" class="text-2xl font-bold text-green-800 tracking-tight">
+            BHARAT<span class="font-light text-gray-400">SANJEEVANI</span>
+        </a>
+        <div class="hidden md:flex space-x-8 text-sm uppercase tracking-widest font-medium">
+            <a href="{% url 'home' %}" class="hover:text-gray-500 transition">Shop</a>
+            <a href="{% url 'contact' %}" class="hover:text-gray-500 transition">Contact Us</a>
+            <a href="{% url 'about' %}" class="hover:text-gray-500 transition">About</a>
+        </div>
+        <div class="flex items-center gap-x-2">
+            <a href="{% url 'cart_view' %}" class="border border-green-800 px-5 py-2 text-xs uppercase tracking-widest text-green-800 hover:bg-green-800 hover:text-white transition duration-300">Cart</a>
+        </div>
+    </nav>
 
-            {% if user_info %}
-            <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
-                <p class="text-xs text-green-800 font-bold uppercase tracking-wider mb-1">Full Name</p>
-                <p class="text-lg text-gray-900 font-medium">{{ request.user.get_full_name|default:"Not provided" }}</p>
-            </div>
-            
-            <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
-                <p class="text-xs text-green-800 font-bold uppercase tracking-wider mb-1">Phone Number</p>
-                <p class="text-lg text-gray-900 font-medium">{{ user_info.phone|default:"Not provided" }}</p>
-            </div>
+    <!-- MAIN CONTENT -->
+    <main class="flex-grow flex items-center justify-center px-4 py-12">
+        <div class="w-full max-w-2xl">
+
+            <!-- Messages -->
+            {% if messages %}
+                <div class="mb-6">
+                    {% for message in messages %}
+                        <div class="p-4 rounded-xl mb-2 text-sm font-medium
+                            {% if message.tags == 'error' %}bg-red-50 text-red-800 border border-red-200
+                            {% else %}bg-green-50 text-green-800 border border-green-200{% endif %}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
             {% endif %}
 
-            <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
-                <p class="text-xs text-green-800 font-bold uppercase tracking-wider mb-1">Email</p>
-                <p class="text-lg text-gray-900 font-medium">{{ request.user.email }}</p>
+            <!-- Profile Card -->
+            <div class="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden">
+
+                <!-- Header -->
+                <div class="bg-gradient-to-br from-green-800 to-green-900 px-8 py-10 text-white text-center relative overflow-hidden">
+                    <div class="absolute inset-0 opacity-10">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" class="w-full h-full">
+                            <circle cx="700" cy="50" r="200" fill="white" opacity="0.1"/>
+                            <circle cx="100" cy="350" r="150" fill="white" opacity="0.05"/>
+                        </svg>
+                    </div>
+                    <div class="relative z-10">
+                        <!-- Avatar Circle -->
+                        <div class="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-white/30">
+                            <span class="text-3xl font-bold text-white uppercase">{{ request.user.username|truncatechars:1 }}</span>
+                        </div>
+                        <h1 class="text-2xl font-bold playfair">{{ request.user.get_full_name|default:request.user.username }}</h1>
+                        <p class="text-green-200 text-sm mt-1 tracking-wider uppercase">Member</p>
+                    </div>
+                </div>
+
+                <!-- Info Fields -->
+                <div class="px-8 py-8 space-y-1">
+
+                    <!-- Username -->
+                    <div class="flex items-center gap-4 py-5 border-b border-gray-100">
+                        <div class="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-green-800">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                            </svg>
+                        </div>
+                        <div class="flex-grow">
+                            <p class="text-[11px] text-gray-400 font-bold uppercase tracking-wider">Username</p>
+                            <p class="text-gray-900 font-semibold text-base mt-0.5">{{ request.user.username }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Full Name -->
+                    <div class="flex items-center gap-4 py-5 border-b border-gray-100">
+                        <div class="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-green-800">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Zm6-10.125a1.875 1.875 0 1 1-3.75 0 1.875 1.875 0 0 1 3.75 0Zm1.294 6.336a6.721 6.721 0 0 1-3.17.789 6.721 6.721 0 0 1-3.168-.789 3.376 3.376 0 0 1 6.338 0Z" />
+                            </svg>
+                        </div>
+                        <div class="flex-grow">
+                            <p class="text-[11px] text-gray-400 font-bold uppercase tracking-wider">Full Name</p>
+                            <p class="text-gray-900 font-semibold text-base mt-0.5">{{ request.user.get_full_name|default:"Not provided" }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="flex items-center gap-4 py-5 border-b border-gray-100">
+                        <div class="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-green-800">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+                            </svg>
+                        </div>
+                        <div class="flex-grow">
+                            <p class="text-[11px] text-gray-400 font-bold uppercase tracking-wider">Email</p>
+                            <p class="text-gray-900 font-semibold text-base mt-0.5">{{ request.user.email|default:"Not provided" }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Phone -->
+                    <div class="flex items-center gap-4 py-5 border-b border-gray-100">
+                        <div class="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-green-800">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-2.896-1.596-5.48-4.18-7.076-7.076l1.293-.97c.362-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
+                            </svg>
+                        </div>
+                        <div class="flex-grow">
+                            <p class="text-[11px] text-gray-400 font-bold uppercase tracking-wider">Phone</p>
+                            <p class="text-gray-900 font-semibold text-base mt-0.5">{{ user_info.phone|default:"Not provided" }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Address (with inline edit) -->
+                    <div class="py-5">
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center flex-shrink-0 mt-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-green-800">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                                </svg>
+                            </div>
+                            <div class="flex-grow">
+                                <div class="flex items-center justify-between mb-1">
+                                    <p class="text-[11px] text-gray-400 font-bold uppercase tracking-wider">Delivery Address</p>
+                                    <button id="editAddressBtn" onclick="toggleAddressEdit()" class="text-xs text-green-800 font-semibold hover:text-green-600 transition cursor-pointer flex items-center gap-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-3.5 h-3.5">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                        </svg>
+                                        Edit
+                                    </button>
+                                </div>
+
+                                <!-- Display Mode -->
+                                <div id="addressDisplay">
+                                    {% if user_info.address %}
+                                        <p class="text-gray-900 font-semibold text-base mt-0.5">{{ user_info.address }}</p>
+                                    {% else %}
+                                        <p class="text-gray-400 italic text-sm mt-0.5">No address added yet. Click "Edit" to add one.</p>
+                                    {% endif %}
+                                </div>
+
+                                <!-- Edit Mode (hidden by default) -->
+                                <form id="addressForm" method="POST" class="hidden mt-2">
+                                    {% csrf_token %}
+                                    <textarea name="address" rows="3"
+                                        class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-green-700 focus:ring-1 focus:ring-green-700 transition resize-none"
+                                        placeholder="Enter your full delivery address...">{{ user_info.address|default:"" }}</textarea>
+                                    <div class="flex gap-2 mt-3">
+                                        <button type="submit"
+                                            class="bg-green-800 text-white text-xs font-semibold px-5 py-2.5 rounded-lg hover:bg-green-900 transition-all duration-300 shadow-sm">
+                                            Save Address
+                                        </button>
+                                        <button type="button" onclick="toggleAddressEdit()"
+                                            class="border border-gray-300 text-gray-600 text-xs font-semibold px-5 py-2.5 rounded-lg hover:bg-gray-50 transition-all duration-300">
+                                            Cancel
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="px-8 pb-8">
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <a href="{% url 'home' %}"
+                           class="flex items-center justify-center gap-2 border-2 border-green-800 text-green-800 px-5 py-3 rounded-xl hover:bg-green-50 transition-all duration-300 font-semibold text-sm">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                            </svg>
+                            Home
+                        </a>
+
+                        <a href="{% url 'change_password' %}"
+                           class="flex items-center justify-center gap-2 bg-green-800 text-white px-5 py-3 rounded-xl hover:bg-green-900 transition-all duration-300 font-semibold text-sm shadow-md">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+                            </svg>
+                            Change Password
+                        </a>
+
+                        <form method="POST" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <button type="submit"
+                                class="w-full flex items-center justify-center gap-2 border-2 border-red-500 text-red-500 px-5 py-3 rounded-xl hover:bg-red-50 transition-all duration-300 font-semibold text-sm">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
+                                </svg>
+                                Logout
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
             </div>
 
-            {% if user_info %}
-            <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
-                <p class="text-xs text-green-800 font-bold uppercase tracking-wider mb-1">Address</p>
-                <p class="text-lg text-gray-900 font-medium">{{ user_info.address|default:"Not provided" }}</p>
-            </div>
-            {% endif %}
         </div>
+    </main>
 
-        <div class="flex flex-col sm:flex-row justify-center gap-4 mt-6">
-            <a href="{% url 'home' %}"
-               class="w-full sm:w-auto text-center border-2 border-green-800 text-green-800 px-6 py-3 rounded-xl hover:bg-green-50 hover:shadow-md transition-all duration-300 font-semibold">
-                Back to Home
-            </a>
+    <footer class="border-t border-gray-200 py-6 text-center text-gray-400 text-xs uppercase tracking-widest mt-auto">
+        &copy; 2026 Bharat Sanjeevani Ayurveda
+    </footer>
 
-            <a href="{% url 'change_password' %}"
-               class="w-full sm:w-auto text-center bg-yellow-500 text-white px-6 py-3 rounded-xl hover:bg-yellow-600 hover:shadow-md transition-all duration-300 font-semibold">
-                Change Password
-            </a>
+    <script>
+        function toggleAddressEdit() {
+            const display = document.getElementById('addressDisplay');
+            const form = document.getElementById('addressForm');
+            const btn = document.getElementById('editAddressBtn');
 
-            <a href="{% url 'logout' %}"
-               class="w-full sm:w-auto text-center bg-red-600 text-white px-6 py-3 rounded-xl hover:bg-red-700 hover:shadow-md transition-all duration-300 font-semibold">
-                Logout
-            </a>
-        </div>
-    </div>
+            if (form.classList.contains('hidden')) {
+                form.classList.remove('hidden');
+                display.classList.add('hidden');
+                btn.classList.add('hidden');
+            } else {
+                form.classList.add('hidden');
+                display.classList.remove('hidden');
+                btn.classList.remove('hidden');
+            }
+        }
+    </script>
 
 </body>
 </html>

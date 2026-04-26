@@ -64,10 +64,17 @@ def login_view(request):
 
 @login_required
 def profile_view(request):
-    try:
-        user_info = UserProfile.objects.get(user=request.user)
-    except UserProfile.DoesNotExist:
-        user_info = None
+    user_info, created = UserProfile.objects.get_or_create(user=request.user)
+
+    if request.method == "POST":
+        new_address = request.POST.get("address", "").strip()
+        if new_address:
+            user_info.address = new_address
+            user_info.save()
+            messages.success(request, "Address updated successfully.")
+        else:
+            messages.error(request, "Address cannot be empty.")
+        return redirect("profile")
 
     return render(request, "profile.html", {"user_info": user_info})
 
