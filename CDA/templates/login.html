@@ -32,29 +32,17 @@
     <form method="POST">
         {% csrf_token %}
 
-        <div class="mb-5">
-            <label class="block text-sm text-gray-600 mb-2">
-                Email or Phone Number
-            </label>
-
-            <input type="text"
-                   name="credential"
-                   class="w-full border border-gray-300 rounded px-4 py-3 focus:outline-none focus:border-green-700"
-                   placeholder="Enter email or phone number"
-                   required>
-        </div>
-
-        <div class="mb-6">
-            <label class="block text-sm text-gray-600 mb-2">
-                Password
-            </label>
-
-            <input type="password"
-                   name="password"
-                   class="w-full border border-gray-300 rounded px-4 py-3 focus:outline-none focus:border-green-700"
-                   placeholder="Enter password"
-                   required>
-        </div>
+        {% for field in form %}
+            <div class="mb-5">
+                <label class="block text-sm text-gray-600 mb-2">
+                    {{ field.label }}
+                </label>
+                {{ field }}
+                {% if field.errors %}
+                    <p class="text-red-500 text-xs italic">{{ field.errors|striptags }}</p>
+                {% endif %}
+            </div>
+        {% endfor %}
 
         <button type="submit"
                 class="w-full bg-green-800 text-white py-3 rounded hover:bg-green-900 transition">

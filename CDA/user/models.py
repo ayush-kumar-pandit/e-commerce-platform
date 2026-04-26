@@ -1,20 +1,16 @@
 from django.db import models
 from django.contrib.auth.models import User
+from home.models import Product
 
-
-class user_data(models.Model):
-    user_name = models.CharField(max_length=20)
-    name = models.CharField(max_length=50)
-    password = models.CharField(max_length=100)
-    phone = models.BigIntegerField()
-    email = models.EmailField(max_length=254)
-    address = models.TextField()
-    gender = models.TextField()
-    age = models.IntegerField()
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    phone = models.CharField(max_length=15, blank=True, null=True)
+    address = models.TextField(blank=True, null=True)
+    gender = models.CharField(max_length=10, blank=True, null=True)
+    age = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
-        return self.user_name
-
+        return self.user.username
 
 class Cart(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='cart')
@@ -22,18 +18,14 @@ class Cart(models.Model):
     def __str__(self):
         return f"{self.user.username}'s Cart"
 
-
 class CartItem(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='items')
-    product_id = models.IntegerField()
-    product_name = models.CharField(max_length=200)
-    product_price = models.DecimalField(max_digits=10, decimal_places=2)
-    product_image = models.ImageField(upload_to='cart_products/', null=True, blank=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
 
     def __str__(self):
-        return f"{self.product_name} x {self.quantity}"
+        return f"{self.product.name} x {self.quantity}"
 
     @property
     def total_price(self):
-        return self.product_price * self.quantity
+        return self.product.price * self.quantity
