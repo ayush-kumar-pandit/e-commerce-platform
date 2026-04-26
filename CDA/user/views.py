@@ -5,8 +5,8 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout as auth_logout
 
-from .models import Cart, CartItem
-from home.models import products   
+from .models import Cart, CartItem, user_data
+from home.models import products
 
 
 def register_view(request):
@@ -68,7 +68,12 @@ def login_view(request):
 
 @login_required
 def profile_view(request):
-    return render(request, "profile.html")
+    try:
+        user_info = user_data.objects.get(user_name=request.user.username)
+    except user_data.DoesNotExist:
+        user_info = None
+
+    return render(request, "profile.html", {"user_info": user_info})
 
 
 def logout_view(request):
@@ -114,6 +119,6 @@ def add_to_cart(request, product_id):
             )
 
         messages.success(request, f"{product.name} added to cart.")
-        return redirect("home")
+        return redirect("cart_view")
 
     return redirect("home")
