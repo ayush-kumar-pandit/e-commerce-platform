@@ -76,7 +76,7 @@
                                 </svg>
                                 <span class="text-[10px] text-white font-semibold">Update</span>
                             </label>
-                            <form id="imageUploadForm" method="POST" enctype="multipart/form-data" class="hidden">
+                            <form id="imageUploadForm" method="POST" enctype="multipart/form-data" style="display: none;">
                                 {% csrf_token %}
                                 <input type="file" id="profileImageUpload" name="image" accept="image/*" onchange="document.getElementById('imageUploadForm').submit()">
                             </form>
