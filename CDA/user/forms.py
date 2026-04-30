@@ -3,22 +3,16 @@ from django.contrib.auth.models import User
 from .models import UserProfile
 
 class UserRegistrationForm(forms.ModelForm):
+    full_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Enter full name', 'class': 'w-full border border-gray-300 rounded px-4 py-3 focus:outline-none focus:border-green-700'}), label="Full Name")
     password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Enter password', 'class': 'w-full border border-gray-300 rounded px-4 py-3 focus:outline-none focus:border-green-700'}))
     confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Confirm password', 'class': 'w-full border border-gray-300 rounded px-4 py-3 focus:outline-none focus:border-green-700'}))
 
     class Meta:
         model = User
-        fields = ['username', 'email']
+        fields = ['full_name', 'email']
         widgets = {
-            'username': forms.TextInput(attrs={'placeholder': 'Enter username', 'class': 'w-full border border-gray-300 rounded px-4 py-3 focus:outline-none focus:border-green-700'}),
             'email': forms.EmailInput(attrs={'placeholder': 'Enter email', 'class': 'w-full border border-gray-300 rounded px-4 py-3 focus:outline-none focus:border-green-700'}),
         }
-
-    def clean_username(self):
-        username = self.cleaned_data.get('username')
-        if User.objects.filter(username=username).exists():
-            raise forms.ValidationError("Username already exists.")
-        return username
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
@@ -35,6 +29,20 @@ class UserRegistrationForm(forms.ModelForm):
             self.add_error('confirm_password', "Passwords do not match.")
 
         return cleaned_data
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.first_name = self.cleaned_data.get('full_name', '')
+        
+        # Auto-generate a unique username based on email
+        email = self.cleaned_data.get('email', '')
+        base_username = email.split('@')[0] if '@' in email else 'user'
+        import uuid
+        user.username = f"{base_username}_{uuid.uuid4().hex[:6]}"
+        
+        if commit:
+            user.save()
+        return user
 
 
 class UserLoginForm(forms.Form):

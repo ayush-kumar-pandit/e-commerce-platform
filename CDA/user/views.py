@@ -52,7 +52,8 @@ def login_view(request):
 
             if user is not None:
                 login(request, user)
-                messages.success(request, f"Welcome back, {user.username}!")
+                display_name = user.get_full_name() or user.username
+                messages.success(request, f"Welcome back, {display_name}!")
                 return redirect("home")
             else:
                 messages.error(request, "Invalid credential or password.")
@@ -67,13 +68,20 @@ def profile_view(request):
     user_info, created = UserProfile.objects.get_or_create(user=request.user)
 
     if request.method == "POST":
-        new_address = request.POST.get("address", "").strip()
-        if new_address:
-            user_info.address = new_address
+        if 'address' in request.POST:
+            new_address = request.POST.get("address", "").strip()
+            if new_address:
+                user_info.address = new_address
+                user_info.save()
+                messages.success(request, "Address updated successfully.")
+            else:
+                messages.error(request, "Address cannot be empty.")
+        
+        if 'image' in request.FILES:
+            user_info.image = request.FILES['image']
             user_info.save()
-            messages.success(request, "Address updated successfully.")
-        else:
-            messages.error(request, "Address cannot be empty.")
+            messages.success(request, "Profile image updated successfully.")
+
         return redirect("profile")
 
     return render(request, "profile.html", {"user_info": user_info})
