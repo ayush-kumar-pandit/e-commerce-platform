@@ -23,10 +23,6 @@ class EmailOrPhoneBackend(ModelBackend):
             except Exception:
                 pass
 
-        # Finally, try actual username just in case
-        if not user_obj:
-            user_obj = User.objects.filter(username=credential).first()
-
         if user_obj and user_obj.check_password(password) and self.user_can_authenticate(user_obj):
             return user_obj
         return None
