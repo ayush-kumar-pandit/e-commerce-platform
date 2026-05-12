@@ -47,6 +47,7 @@
                                 <div>
                                     <h3 class="font-bold text-lg text-gray-900">{{ item.product.name }}</h3>
                                     <p class="text-xs text-gray-500 uppercase tracking-wider mt-1">Item #{{ item.product.id }}</p>
+                                    <a href="{% url 'remove_cart_item' item.id %}" class="text-[10px] text-red-500 font-bold uppercase tracking-wider hover:text-red-700 transition">Remove</a>
                                 </div>
                             </div>
                             
@@ -57,11 +58,15 @@
                             </div>
 
                             <!-- Quantity -->
-                            <div class="col-span-1 sm:col-span-2 sm:text-center">
+                            <div class="col-span-1 sm:col-span-2 sm:text-center flex items-center sm:justify-center">
                                 <span class="sm:hidden text-xs text-gray-400 uppercase tracking-wider mr-2">Qty:</span>
-                                <span class="inline-flex items-center justify-center bg-gray-100 text-gray-800 rounded-full h-8 w-8 text-sm font-bold">
-                                    {{ item.quantity }}
-                                </span>
+                                <div class="flex items-center gap-2">
+                                    <a href="{% url 'update_cart_item' item.id 'decrease' %}" class="w-6 h-6 flex items-center justify-center bg-gray-200 text-gray-600 rounded-full hover:bg-gray-300 transition">-</a>
+                                    <span class="inline-flex items-center justify-center bg-gray-100 text-gray-800 rounded-full h-8 w-8 text-sm font-bold">
+                                        {{ item.quantity }}
+                                    </span>
+                                    <a href="{% url 'update_cart_item' item.id 'increase' %}" class="w-6 h-6 flex items-center justify-center bg-gray-200 text-gray-600 rounded-full hover:bg-gray-300 transition">+</a>
+                                </div>
                             </div>
 
                             <!-- Total -->

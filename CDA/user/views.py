@@ -36,19 +36,7 @@ def login_view(request):
             credential = form.cleaned_data['credential']
             password = form.cleaned_data['password']
 
-            user_obj = User.objects.filter(email=credential).first()
-
-            if not user_obj:
-                try:
-                    ud = UserProfile.objects.get(phone=credential)
-                    user_obj = ud.user
-                except (UserProfile.DoesNotExist, ValueError):
-                    user_obj = None
-
-            if user_obj:
-                user = authenticate(request, username=user_obj.username, password=password)
-            else:
-                user = None
+            user = authenticate(request, username=credential, password=password)
 
             if user is not None:
                 login(request, user)
@@ -129,6 +117,30 @@ def add_to_cart(request, product_id):
         messages.success(request, f"{product.name} added to cart.")
         return redirect("cart_view")
     return redirect("home")
+
+
+@login_required
+def update_cart_item(request, item_id, action):
+    item = get_object_or_404(CartItem, id=item_id, cart__user=request.user)
+    if action == 'increase':
+        item.quantity += 1
+        item.save()
+    elif action == 'decrease':
+        if item.quantity > 1:
+            item.quantity -= 1
+            item.save()
+        else:
+            item.delete()
+    return redirect('cart_view')
+
+
+@login_required
+def remove_cart_item(request, item_id):
+    item = get_object_or_404(CartItem, id=item_id, cart__user=request.user)
+    product_name = item.product.name
+    item.delete()
+    messages.success(request, f"{product_name} removed from cart.")
+    return redirect('cart_view')
 
 
 @login_required
