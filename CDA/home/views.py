@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Product
+from .models import Product, OurScience
 
 # Create your views here.
 def home(request):
@@ -11,3 +11,8 @@ def about_view(request):
 
 def contact_view(request):
     return render(request, "contact.html")
+
+def our_science_view(request):
+    # Fetch the first OurScience object, or None if it doesn't exist yet
+    science_data = OurScience.objects.first()
+    return render(request, "our_science.html", {"science_data": science_data})
