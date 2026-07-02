@@ -135,3 +135,6 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = '/user/login/'
+
+# Session expiry (24 hours)
+SESSION_COOKIE_AGE = 86400
