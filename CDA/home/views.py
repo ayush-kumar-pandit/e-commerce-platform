@@ -1,6 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
 from .models import Product, OurScience
+
+def product_detail_view(request, id):
+    product = get_object_or_404(Product, id=id)
+    return render(request, "product_detail.html", {"product": product})
 
 # Create your views here.
 def home(request):

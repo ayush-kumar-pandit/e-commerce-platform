@@ -97,31 +97,22 @@
                 {% for product in prods %}
                     <div class="bg-white shadow-lg rounded-lg p-6 product-card reveal transition transform hover:-translate-y-1">
                         {% if product.image %}
-                        <div class="relative h-48 w-full mb-4 overflow-hidden rounded">
+                        <div class="relative w-full aspect-square mb-4 overflow-hidden rounded bg-gray-50">
                             <img src="{{ product.image.url }}" alt="{{ product.name }}" class="object-cover w-full h-full">
                         </div>
                         {% else %}
-                        <div class="bg-gray-100 rounded mb-4 h-48 flex items-center justify-center text-gray-400 text-sm">No Image</div>
+                        <div class="bg-gray-100 rounded mb-4 aspect-square flex items-center justify-center text-gray-400 text-sm">No Image</div>
                         {% endif %}
 
                         <h3 class="text-xl font-semibold mb-2 truncate" title="{{ product.name }}">{{ product.name }}</h3>
-                        <p class="text-gray-600 mb-4 text-sm line-clamp-3" title="{{ product.desc }}">{{ product.desc }}</p>
+                        <p class="text-gray-600 mb-4 line-clamp-2 text-sm" title="{{ product.desc }}">{{ product.desc }}</p>
                         
                         <div class="mt-auto">
                             <p class="text-ayur-green font-bold mb-4 text-lg">₹{{ product.price }}</p>
 
-                            {% if user.is_authenticated %}
-                                <form method="POST" action="{% url 'add_to_cart' product.id %}">
-                                    {% csrf_token %}
-                                    <button type="submit" class="w-full bg-ayur-green text-white px-5 py-2 rounded hover:bg-[#1a3821] hover:shadow-lg transition text-sm uppercase tracking-wide">
-                                        Add to Cart
-                                    </button>
-                                </form>
-                            {% else %}
-                                <a href="{% url 'login' %}" class="block text-center w-full bg-ayur-green text-white px-5 py-2 rounded hover:bg-[#1a3821] hover:shadow-lg transition text-sm uppercase tracking-wide">
-                                    Login to Add
-                                </a>
-                            {% endif %}
+                            <a href="{% url 'product_detail' product.id %}" class="block text-center w-full bg-ayur-green text-white px-5 py-2.5 rounded hover:bg-[#1a3821] hover:shadow-lg transition text-sm uppercase tracking-wide font-semibold">
+                                See More
+                            </a>
                         </div>
                     </div>
                 {% endfor %}
