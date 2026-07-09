@@ -5,9 +5,12 @@ from django.contrib.auth import authenticate, login, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.forms import PasswordChangeForm
-from .models import Cart, CartItem, UserProfile
+from .models import Cart, CartItem, UserProfile, OTPVerification
 from home.models import Product
 from .forms import UserRegistrationForm, UserLoginForm
+import random
+from django.core.mail import send_mail
+from django.conf import settings
 
 
 def register_view(request):
@@ -16,9 +19,27 @@ def register_view(request):
         if form.is_valid():
             user = form.save(commit=False)
             user.set_password(form.cleaned_data['password'])
+            user.is_active = False # Deactivate account till it is verified
             user.save()
-            messages.success(request, "Account created successfully. Please log in.")
-            return redirect("login")
+
+            # Generate OTP
+            otp = str(random.randint(100000, 999999))
+            OTPVerification.objects.create(user=user, otp=otp)
+
+            # Send Email
+            subject = 'Verify your email for Bharat Sanjeevani Ayurveda'
+            message = f'Your OTP for registration is {otp}.'
+            email_from = settings.DEFAULT_FROM_EMAIL if hasattr(settings, 'DEFAULT_FROM_EMAIL') else 'noreply@bharatsanjeevani.com'
+            recipient_list = [user.email]
+            
+            try:
+                send_mail(subject, message, email_from, recipient_list)
+            except Exception as e:
+                print(f"Error sending email: {e}")
+
+            request.session['registration_user_id'] = user.id
+            messages.success(request, "OTP sent to your email. Please verify.")
+            return redirect("verify_otp")
         else:
             for field, errors in form.errors.items():
                 for error in errors:
@@ -27,6 +48,31 @@ def register_view(request):
         form = UserRegistrationForm()
 
     return render(request, "register.html", {"form": form})
+
+def verify_otp_view(request):
+    user_id = request.session.get('registration_user_id')
+    if not user_id:
+        messages.error(request, "No registration in progress. Please register again.")
+        return redirect("register")
+
+    user = get_object_or_404(User, id=user_id)
+
+    if request.method == "POST":
+        otp_entered = request.POST.get('otp', '').strip()
+        otp_record = getattr(user, 'otp_verification', None)
+
+        if otp_record and otp_record.otp == otp_entered:
+            user.is_active = True
+            user.save()
+            otp_record.delete()
+            del request.session['registration_user_id']
+            
+            messages.success(request, "Email verified successfully! You can now log in.")
+            return redirect("login")
+        else:
+            messages.error(request, "Invalid OTP. Please try again.")
+
+    return render(request, "verify_otp.html", {"user_email": user.email})
 
 
 def login_view(request):
