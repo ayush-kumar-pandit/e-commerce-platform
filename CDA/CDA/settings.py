@@ -138,3 +138,7 @@ LOGIN_URL = '/user/login/'
 
 # Session expiry (24 hours)
 SESSION_COOKIE_AGE = 86400
+
+# Email backend for development
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+DEFAULT_FROM_EMAIL = 'noreply@bharatsanjeevani.com'
