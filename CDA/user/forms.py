@@ -3,22 +3,58 @@ from django.contrib.auth.models import User
 from .models import UserProfile
 
 class UserRegistrationForm(forms.ModelForm):
-    full_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Enter full name', 'class': 'w-full border border-gray-300 rounded px-4 py-3 focus:outline-none focus:border-green-700'}), label="Full Name")
-    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Enter password', 'class': 'w-full border border-gray-300 rounded px-4 py-3 focus:outline-none focus:border-green-700'}))
-    confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Confirm password', 'class': 'w-full border border-gray-300 rounded px-4 py-3 focus:outline-none focus:border-green-700'}))
+    full_name = forms.CharField(
+        required=True,
+        error_messages={'required': 'Full Name cannot be empty.'},
+        widget=forms.TextInput(attrs={'placeholder': 'Enter full name', 'class': 'w-full border border-gray-300 rounded px-4 py-3 focus:outline-none focus:border-green-700', 'required': 'required'}),
+        label="Full Name"
+    )
+    password = forms.CharField(
+        required=True,
+        error_messages={'required': 'Password cannot be empty.'},
+        widget=forms.PasswordInput(attrs={'placeholder': 'Enter password', 'class': 'w-full border border-gray-300 rounded px-4 py-3 focus:outline-none focus:border-green-700', 'required': 'required'})
+    )
+    confirm_password = forms.CharField(
+        required=True,
+        error_messages={'required': 'Please confirm your password.'},
+        widget=forms.PasswordInput(attrs={'placeholder': 'Confirm password', 'class': 'w-full border border-gray-300 rounded px-4 py-3 focus:outline-none focus:border-green-700', 'required': 'required'})
+    )
 
     class Meta:
         model = User
         fields = ['full_name', 'email']
         widgets = {
-            'email': forms.EmailInput(attrs={'placeholder': 'Enter email', 'class': 'w-full border border-gray-300 rounded px-4 py-3 focus:outline-none focus:border-green-700'}),
+            'email': forms.EmailInput(attrs={'placeholder': 'Enter email', 'class': 'w-full border border-gray-300 rounded px-4 py-3 focus:outline-none focus:border-green-700', 'required': 'required'}),
+        }
+        error_messages = {
+            'email': {'required': 'Email cannot be empty.'},
         }
 
+    def clean_full_name(self):
+        full_name = self.cleaned_data.get('full_name', '').strip()
+        if not full_name:
+            raise forms.ValidationError('Full Name cannot be empty.')
+        return full_name
+
     def clean_email(self):
-        email = self.cleaned_data.get('email')
+        email = self.cleaned_data.get('email', '').strip()
+        if not email:
+            raise forms.ValidationError('Email cannot be empty.')
         if User.objects.filter(email=email).exists():
             raise forms.ValidationError("Email is already registered.")
         return email
+
+    def clean_password(self):
+        password = self.cleaned_data.get('password', '').strip()
+        if not password:
+            raise forms.ValidationError('Password cannot be empty.')
+        return password
+
+    def clean_confirm_password(self):
+        confirm_password = self.cleaned_data.get('confirm_password', '').strip()
+        if not confirm_password:
+            raise forms.ValidationError('Please confirm your password.')
+        return confirm_password
 
     def clean(self):
         cleaned_data = super().clean()
@@ -47,10 +83,26 @@ class UserRegistrationForm(forms.ModelForm):
 
 class UserLoginForm(forms.Form):
     credential = forms.CharField(
-        widget=forms.TextInput(attrs={'placeholder': 'Enter email or phone number', 'class': 'w-full border border-gray-300 rounded px-4 py-3 focus:outline-none focus:border-green-700'}),
+        required=True,
+        error_messages={'required': 'Email or phone number cannot be empty.'},
+        widget=forms.TextInput(attrs={'placeholder': 'Enter email or phone number', 'class': 'w-full border border-gray-300 rounded px-4 py-3 focus:outline-none focus:border-green-700', 'required': 'required'}),
         label="Email or Phone Number"
     )
     password = forms.CharField(
-        widget=forms.PasswordInput(attrs={'placeholder': 'Enter password', 'class': 'w-full border border-gray-300 rounded px-4 py-3 focus:outline-none focus:border-green-700'}),
+        required=True,
+        error_messages={'required': 'Password cannot be empty.'},
+        widget=forms.PasswordInput(attrs={'placeholder': 'Enter password', 'class': 'w-full border border-gray-300 rounded px-4 py-3 focus:outline-none focus:border-green-700', 'required': 'required'}),
         label="Password"
     )
+
+    def clean_credential(self):
+        credential = self.cleaned_data.get('credential', '').strip()
+        if not credential:
+            raise forms.ValidationError('Email or phone number cannot be empty.')
+        return credential
+
+    def clean_password(self):
+        password = self.cleaned_data.get('password', '').strip()
+        if not password:
+            raise forms.ValidationError('Password cannot be empty.')
+        return password
