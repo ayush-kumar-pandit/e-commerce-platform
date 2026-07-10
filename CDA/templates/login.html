@@ -42,23 +42,33 @@
     {% endif %}
 
     <!-- Login Form -->
-    <form method="POST">
+    <form method="POST" id="loginForm" novalidate>
         {% csrf_token %}
 
         {% for field in form %}
             <div class="mb-5">
-                <label class="block text-sm text-gray-600 mb-2">
+                <label class="block text-sm font-medium text-gray-700 mb-1">
                     {{ field.label }}
+                    <span class="text-red-500">*</span>
                 </label>
                 {{ field }}
                 {% if field.errors %}
-                    <p class="text-red-500 text-xs italic">{{ field.errors|striptags }}</p>
+                    {% for error in field.errors %}
+                        <p class="text-red-600 text-xs mt-1 flex items-center gap-1">
+                            <svg class="w-3 h-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+                            {{ error }}
+                        </p>
+                    {% endfor %}
                 {% endif %}
+                <div class="field-error text-red-600 text-xs mt-1 hidden flex items-center gap-1">
+                    <svg class="w-3 h-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+                    <span>{{ field.label }} cannot be empty.</span>
+                </div>
             </div>
         {% endfor %}
 
         <button type="submit"
-                class="w-full bg-green-800 text-white py-3 rounded hover:bg-green-900 transition">
+                class="w-full bg-green-800 text-white py-3 rounded hover:bg-green-900 transition font-semibold">
             Login
         </button>
 
@@ -73,6 +83,51 @@
     </p>
 
 </div>
+
+<script>
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+    const inputs = this.querySelectorAll('input');
+
+    inputs.forEach(function(input) {
+        const fieldError = input.closest('div').querySelector('.field-error');
+        if (input.value.trim() === '') {
+            e.preventDefault();
+            input.classList.add('border-red-500');
+            input.classList.remove('border-gray-300');
+            if (fieldError) fieldError.classList.remove('hidden');
+        } else {
+            input.classList.remove('border-red-500');
+            input.classList.add('border-gray-300');
+            if (fieldError) fieldError.classList.add('hidden');
+        }
+    });
+});
+
+// Real-time per-field validation on blur and input
+document.querySelectorAll('#loginForm input').forEach(function(input) {
+    input.addEventListener('blur', function() {
+        const fieldError = this.closest('div').querySelector('.field-error');
+        if (this.value.trim() === '') {
+            this.classList.add('border-red-500');
+            this.classList.remove('border-gray-300');
+            if (fieldError) fieldError.classList.remove('hidden');
+        } else {
+            this.classList.remove('border-red-500');
+            this.classList.add('border-gray-300');
+            if (fieldError) fieldError.classList.add('hidden');
+        }
+    });
+
+    input.addEventListener('input', function() {
+        if (this.value.trim() !== '') {
+            const fieldError = this.closest('div').querySelector('.field-error');
+            this.classList.remove('border-red-500');
+            this.classList.add('border-gray-300');
+            if (fieldError) fieldError.classList.add('hidden');
+        }
+    });
+});
+</script>
 
 </body>
 </html>
