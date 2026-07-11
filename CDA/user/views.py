@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.forms import PasswordChangeForm
-from .models import Cart, CartItem, UserProfile, OTPVerification
+from .models import Cart, CartItem, UserProfile
 from home.models import Product
 from .forms import UserRegistrationForm, UserLoginForm
 import random
@@ -17,28 +17,39 @@ def register_view(request):
     if request.method == "POST":
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
-            user = form.save(commit=False)
-            user.set_password(form.cleaned_data['password'])
-            user.is_active = False # Deactivate account till it is verified
-            user.save()
+            # Do NOT save the user yet — store registration data in session
+            pending_data = {
+                'full_name': form.cleaned_data['full_name'],
+                'email': form.cleaned_data['email'],
+                'password': form.cleaned_data['password'],
+            }
 
             # Generate OTP
             otp = str(random.randint(100000, 999999))
-            OTPVerification.objects.create(user=user, otp=otp)
+
+            # Store pending data and OTP in session
+            request.session['pending_registration'] = pending_data
+            request.session['registration_otp'] = otp
 
             # Send Email
             subject = 'Verify your email for Bharat Sanjeevani Ayurveda'
-            message = f'Your OTP for registration is {otp}.'
-            email_from = settings.DEFAULT_FROM_EMAIL if hasattr(settings, 'DEFAULT_FROM_EMAIL') else 'noreply@bharatsanjeevani.com'
-            recipient_list = [user.email]
-            
+            message = (
+                f'Hello {pending_data["full_name"]},\n\n'
+                f'Your OTP for registration is: {otp}\n\n'
+                f'This OTP is valid for this session only. Do not share it with anyone.\n\n'
+                f'– Bharat Sanjeevani Ayurveda Team'
+            )
+            email_from = settings.DEFAULT_FROM_EMAIL
+            recipient_list = [pending_data['email']]
+
             try:
                 send_mail(subject, message, email_from, recipient_list)
+                messages.success(request, "OTP sent to your email. Please verify.")
             except Exception as e:
                 print(f"Error sending email: {e}")
+                messages.error(request, "Failed to send OTP email. Please try again.")
+                return render(request, "register.html", {"form": form})
 
-            request.session['registration_user_id'] = user.id
-            messages.success(request, "OTP sent to your email. Please verify.")
             return redirect("verify_otp")
         else:
             for field, errors in form.errors.items():
@@ -50,29 +61,42 @@ def register_view(request):
     return render(request, "register.html", {"form": form})
 
 def verify_otp_view(request):
-    user_id = request.session.get('registration_user_id')
-    if not user_id:
+    pending_data = request.session.get('pending_registration')
+    stored_otp = request.session.get('registration_otp')
+
+    if not pending_data or not stored_otp:
         messages.error(request, "No registration in progress. Please register again.")
         return redirect("register")
 
-    user = get_object_or_404(User, id=user_id)
-
     if request.method == "POST":
         otp_entered = request.POST.get('otp', '').strip()
-        otp_record = getattr(user, 'otp_verification', None)
 
-        if otp_record and otp_record.otp == otp_entered:
-            user.is_active = True
+        if otp_entered == stored_otp:
+            # OTP is correct — now create the user
+            import uuid
+            email = pending_data['email']
+            base_username = email.split('@')[0] if '@' in email else 'user'
+            username = f"{base_username}_{uuid.uuid4().hex[:6]}"
+
+            user = User(
+                username=username,
+                email=email,
+                first_name=pending_data['full_name'],
+                is_active=True,
+            )
+            user.set_password(pending_data['password'])
             user.save()
-            otp_record.delete()
-            del request.session['registration_user_id']
-            
+
+            # Clear session data
+            del request.session['pending_registration']
+            del request.session['registration_otp']
+
             messages.success(request, "Email verified successfully! You can now log in.")
             return redirect("login")
         else:
             messages.error(request, "Invalid OTP. Please try again.")
 
-    return render(request, "verify_otp.html", {"user_email": user.email})
+    return render(request, "verify_otp.html", {"user_email": pending_data.get('email', '')})
 
 
 def login_view(request):
