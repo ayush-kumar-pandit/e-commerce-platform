@@ -6,7 +6,8 @@ class UserRegistrationForm(forms.ModelForm):
     full_name = forms.CharField(
         required=True,
         error_messages={'required': 'Full Name cannot be empty.'},
-        widget=forms.TextInput(attrs={'placeholder': 'Enter full name', 'class': 'w-full border border-gray-300 rounded px-4 py-3 focus:outline-none focus:border-green-700', 'required': 'required'}),
+        widget=forms.TextInput(attrs={'placeholder': 'Enter full name', 'class': 'w-full border border-gray-300 rounded px-4 py-3 focus:outline-none focus:border-green-700', 'required': 'required'})
+        ,
         label="Full Name"
     )
     password = forms.CharField(
@@ -24,7 +25,7 @@ class UserRegistrationForm(forms.ModelForm):
         model = User
         fields = ['full_name', 'email']
         widgets = {
-            'email': forms.EmailInput(attrs={'placeholder': 'Enter email', 'class': 'w-full border border-gray-300 rounded px-4 py-3 focus:outline-none focus:border-green-700', 'required': 'required'}),
+            'email': forms.EmailInput(attrs={'placeholder': 'Enter email', 'class': 'w-full border border-gray-300 rounded px-4 py-3 focus:outline-none focus:border-green-700', 'required': 'required'})
         }
         error_messages = {
             'email': {'required': 'Email cannot be empty.'},
@@ -66,7 +67,11 @@ class UserRegistrationForm(forms.ModelForm):
 
         return cleaned_data
 
-    def save(self, commit=True):
+    def save(self, commit=False):
+        """
+        IMPORTANT: commit=False by default to prevent saving users before email verification.
+        The user is only saved after OTP verification in verify_otp_view().
+        """
         user = super().save(commit=False)
         user.first_name = self.cleaned_data.get('full_name', '')
         
@@ -76,8 +81,7 @@ class UserRegistrationForm(forms.ModelForm):
         import uuid
         user.username = f"{base_username}_{uuid.uuid4().hex[:6]}"
         
-        if commit:
-            user.save()
+        # Never save during registration form — only return user object
         return user
 
 
@@ -85,13 +89,15 @@ class UserLoginForm(forms.Form):
     credential = forms.CharField(
         required=True,
         error_messages={'required': 'Email or phone number cannot be empty.'},
-        widget=forms.TextInput(attrs={'placeholder': 'Enter email or phone number', 'class': 'w-full border border-gray-300 rounded px-4 py-3 focus:outline-none focus:border-green-700', 'required': 'required'}),
+        widget=forms.TextInput(attrs={'placeholder': 'Enter email or phone number', 'class': 'w-full border border-gray-300 rounded px-4 py-3 focus:outline-none focus:border-green-700', 'required': 'required'})
+        ,
         label="Email or Phone Number"
     )
     password = forms.CharField(
         required=True,
         error_messages={'required': 'Password cannot be empty.'},
-        widget=forms.PasswordInput(attrs={'placeholder': 'Enter password', 'class': 'w-full border border-gray-300 rounded px-4 py-3 focus:outline-none focus:border-green-700', 'required': 'required'}),
+        widget=forms.PasswordInput(attrs={'placeholder': 'Enter password', 'class': 'w-full border border-gray-300 rounded px-4 py-3 focus:outline-none focus:border-green-700', 'required': 'required'})
+        ,
         label="Password"
     )
 
