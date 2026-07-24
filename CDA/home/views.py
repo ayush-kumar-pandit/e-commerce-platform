@@ -1,17 +1,34 @@
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
-from .models import Product, OurScience
+from .models import Product, ProductImage, OurScience
+
 
 def product_detail_view(request, id):
+    """
+    Display product details with image gallery.
+    Shows all product images in order of display_order.
+    """
     product = get_object_or_404(Product, id=id)
-    return render(request, "product_detail.html", {"product": product})
+    # Get all images for this product, ordered by display_order
+    images = product.images.all().order_by('display_order')
+    
+    context = {
+        'product': product,
+        'images': images,
+    }
+    return render(request, "product_detail.html", context)
 
-# Create your views here.
+
 def home(request):
+    """Display all products on home page"""
     prods = Product.objects.all()
-    return render(request,"home.html", {"prods": prods})
+    return render(request, "home.html", {"prods": prods})
+
 
 def shop_view(request):
+    """
+    Shop view with search, filtering, and sorting functionality.
+    """
     prods = Product.objects.all()
 
     # Search
@@ -19,7 +36,7 @@ def shop_view(request):
     if q:
         prods = prods.filter(Q(name__icontains=q) | Q(desc__icontains=q))
 
-    # Filter
+    # Filter by price
     min_price = request.GET.get('min_price')
     max_price = request.GET.get('max_price')
     
@@ -35,7 +52,7 @@ def shop_view(request):
         except ValueError:
             pass
 
-    # Sort
+    # Sort products
     sort = request.GET.get('sort')
     if sort == 'price_asc':
         prods = prods.order_by('price')
@@ -46,7 +63,7 @@ def shop_view(request):
     elif sort == 'name_desc':
         prods = prods.order_by('-name')
     else:
-        # Default sorting by pk or id to keep order consistent
+        # Default sorting by id to keep order consistent
         prods = prods.order_by('id')
 
     context = {
@@ -58,13 +75,21 @@ def shop_view(request):
     }
     return render(request, "shop.html", context)
 
+
 def about_view(request):
+    """Display about page"""
     return render(request, "about.html")
 
+
 def contact_view(request):
+    """Display contact page"""
     return render(request, "contact.html")
 
+
 def our_science_view(request):
-    # Fetch the first OurScience object, or None if it doesn't exist yet
+    """
+    Display 'Our Science' section with content.
+    Fetches the first OurScience object from database.
+    """
     science_data = OurScience.objects.first()
     return render(request, "our_science.html", {"science_data": science_data})
