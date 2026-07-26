@@ -1,76 +1,64 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block title %}Verify Email | Bharat Sanjeevani{% endblock %}
 
-<title>Verify Email | Bharat Sanjeevani</title>
+{% block content %}
+<div class="flex items-center justify-center min-h-[calc(100vh-200px)] py-12 px-4">
+    <div class="w-full max-w-md bg-white dark:bg-gray-800 shadow-xl rounded-lg p-10 border border-gray-100 dark:border-gray-700">
 
-<script src="https://cdn.tailwindcss.com"></script>
-
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-
-</head>
-
-<body class="bg-cream flex items-center justify-center min-h-screen" style="background-color: #fdfbf7;">
-
-<div class="w-full max-w-md bg-white shadow-xl rounded-lg p-10 border border-gray-100">
-
-    <!-- Logo -->
-    <div class="text-center mb-8">
-        <h1 class="text-3xl font-bold text-green-800 tracking-tight">
-            BHARAT<span class="font-light text-gray-400">SANJEEVANI</span>
-        </h1>
-        <p class="text-gray-500 text-sm mt-2">
-            Verify your email address ✉️
-        </p>
-    </div>
-
-    <!-- Messages -->
-    {% if messages %}
-        <div class="mb-6">
-            {% for message in messages %}
-                <div class="p-4 rounded-md mb-2 text-sm font-medium
-                    {% if message.tags == 'error' %}bg-red-50 text-red-800 border border-red-200
-                    {% else %}bg-green-50 text-green-800 border border-green-200{% endif %}">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        </div>
-    {% endif %}
-
-    <div class="mb-6 text-sm text-gray-600 text-center">
-        We've sent a 6-digit one-time password to <span class="font-semibold text-gray-800">{{ user_email }}</span>.
-    </div>
-
-    <!-- OTP Form -->
-    <form method="POST" action="{% url 'verify_otp' %}">
-        {% csrf_token %}
-
-        <div class="mb-6">
-            <label class="block text-sm font-medium text-gray-700 mb-2">
-                Enter OTP
-            </label>
-            <input type="text" name="otp" required maxlength="6" pattern="\d{6}" placeholder="123456"
-                   class="w-full border border-gray-300 rounded-lg px-4 py-3 text-center text-xl tracking-[0.5em] focus:outline-none focus:border-green-700 focus:ring-1 focus:ring-green-700 transition">
+        <!-- Logo -->
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-green-800 dark:text-green-500 tracking-tight">
+                BHARAT<span class="font-light text-gray-400 dark:text-gray-400">SANJEEVANI</span>
+            </h1>
+            <p class="text-gray-500 dark:text-gray-400 text-sm mt-2">
+                Verify your email address ✉️
+            </p>
         </div>
 
-        <button type="submit"
-                class="w-full bg-green-800 text-white font-semibold py-3 rounded-lg hover:bg-green-900 transition-all duration-300 shadow-md">
-            Verify & Activate Account
-        </button>
+        <!-- Messages -->
+        {% if messages %}
+            <div class="mb-6">
+                {% for message in messages %}
+                    <div class="p-4 rounded-md mb-2 text-sm font-medium
+                        {% if message.tags == 'error' %}bg-red-50 dark:bg-red-900/30 text-red-800 dark:text-red-400 border border-red-200 dark:border-red-800
+                        {% else %}bg-green-50 dark:bg-green-900/30 text-green-800 dark:text-green-400 border border-green-200 dark:border-green-800{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
 
-    </form>
+        <div class="mb-6 text-sm text-gray-600 dark:text-gray-300 text-center">
+            We've sent a 6-digit one-time password to <span class="font-semibold text-gray-800 dark:text-white">{{ user_email }}</span>.
+        </div>
 
-    <div class="mt-6 text-center">
-        <a href="{% url 'register' %}" class="text-sm text-gray-500 hover:text-green-800 hover:underline transition">
-            &larr; Back to Registration
-        </a>
+        <!-- OTP Form -->
+        <form method="POST" action="{% url 'verify_otp' %}">
+            {% csrf_token %}
+
+            <div class="mb-6">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Enter OTP
+                </label>
+                <input type="text" name="otp" required maxlength="6" pattern="\d{6}" placeholder="123456"
+                       class="w-full bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 text-center text-xl tracking-[0.5em] focus:outline-none focus:border-green-700 dark:focus:border-green-500 focus:ring-1 focus:ring-green-700 dark:focus:ring-green-500 transition">
+            </div>
+
+            <button type="submit"
+                    class="w-full bg-green-800 dark:bg-green-700 text-white font-semibold py-3 rounded-lg hover:bg-green-900 dark:hover:bg-green-600 transition-all duration-300 shadow-md">
+                Verify & Activate Account
+            </button>
+
+        </form>
+
+        <div class="mt-6 text-center">
+            <a href="{% url 'register' %}" class="text-sm text-gray-500 dark:text-gray-400 hover:text-green-800 dark:hover:text-green-400 hover:underline transition">
+                &larr; Back to Registration
+            </a>
+        </div>
+
     </div>
-
 </div>
-
-</body>
-</html>
+{% endblock %}

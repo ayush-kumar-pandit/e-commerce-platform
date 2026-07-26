@@ -40,7 +40,7 @@
 
 
 <!-- FEATURES -->
-<section class="bg-white py-20 border-y border-gray-100">
+<section class="bg-white dark:bg-gray-800 py-20 border-y border-gray-100">
 
     <div class="max-w-7xl mx-auto px-8 grid md:grid-cols-3 gap-16 text-center">
 
@@ -103,7 +103,7 @@
 
     <div class="grid md:grid-cols-3 gap-8">
         {% for product in prods %}
-            <div class="bg-white shadow-lg rounded-lg p-6 product-card reveal">
+            <div class="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-6 product-card reveal">
                 {% if product.image %}
                 <div class="relative w-full aspect-square mb-4 overflow-hidden rounded bg-gray-50">
                     <img src="{{ product.image.url }}"
