@@ -1,43 +1,7 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Shop | Bharat Sanjeevani Ayurveda</title>
-
-<script src="https://cdn.tailwindcss.com"></script>
-
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-
-<link href="{% static 'css/home.css' %}" rel="stylesheet">
-</head>
-
-<body class="bg-cream text-gray-800">
-
-<!-- NAVBAR -->
-<nav class="flex justify-between items-center px-8 py-6 max-w-7xl mx-auto">
-    <div class="text-2xl font-bold text-ayur-green tracking-tight">
-        <a href="{% url 'home' %}">BHARAT<span class="font-light text-gray-400">SANJEEVANI</span></a>
-    </div>
-    <div class="hidden md:flex space-x-8 text-sm uppercase tracking-widest font-medium">
-        <a href="{% url 'shop' %}" class="hover:text-gray-500 transition border-b border-ayur-green pb-1">Shop</a>
-        <a href="{% url 'our_science' %}" class="hover:text-gray-500 transition">Our Science</a>
-        <a href="{% url 'contact' %}" class="hover:text-gray-500 transition">Contact Us</a>
-        <a href="{% url 'about' %}" class="hover:text-gray-500 transition">About</a>
-    </div>
-    <div class="flex items-center gap-x-2">
-        {% if user.is_authenticated %}
-            <a href="{% url 'profile' %}" class="border border-ayur-green px-5 py-2 text-xs uppercase tracking-widest hover:bg-ayur-green hover:text-white transition duration-300">Profile</a>
-            <a href="{% url 'cart_view' %}" class="border border-ayur-green px-5 py-2 text-xs uppercase tracking-widest hover:bg-ayur-green hover:text-white transition duration-300">Cart</a>
-        {% else %}
-            <a href="{% url 'register' %}" class="border border-ayur-green px-5 py-2 text-xs uppercase tracking-widest hover:bg-ayur-green hover:text-white transition duration-300">Register</a>
-            <a href="{% url 'login' %}" class="border border-ayur-green px-5 py-2 text-xs uppercase tracking-widest hover:bg-ayur-green hover:text-white transition duration-300">Login</a>
-        {% endif %}
-    </div>
-</nav>
-
+{% block content %}
 <!-- SHOP HEADER -->
 <header class="bg-ayur-green text-white py-12 px-8">
     <div class="max-w-7xl mx-auto">
@@ -127,38 +91,9 @@
         {% endif %}
     </main>
 </section>
+{% endblock %}
 
-<!-- FOOTER -->
-<footer class="bg-ayur-green text-white py-16 px-8 mt-12">
-    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12">
-        <div>
-            <div class="text-2xl font-bold mb-6 tracking-tight">BHARAT<span class="font-light text-gray-300">SANJEEVANI</span></div>
-            <p class="text-gray-200 mb-6 max-w-md leading-relaxed">We are here to guide you toward conscious living and holistic wellness. Reach out to us for product enquiries, consultations, or partnerships.</p>
-            <div class="space-y-3 text-sm text-gray-200">
-                <p><span class="font-semibold text-white">Address:</span> 123 Ayur Wellness Street, New Delhi, India</p>
-                <p><span class="font-semibold text-white">Phone:</span> +91 98765 43210</p>
-                <p><span class="font-semibold text-white">Email:</span> support@bharatsanjeevaniayurveda.com</p>
-                <p><span class="font-semibold text-white">Working Hours:</span> Mon - Sat, 9:00 AM - 6:00 PM</p>
-            </div>
-        </div>
-        <div>
-            <h3 class="text-xl font-semibold mb-6 uppercase tracking-wider">Send an Enquiry</h3>
-            <form method="POST" action="" class="space-y-4">
-                {% csrf_token %}
-                <input type="text" name="name" placeholder="Your Name" class="w-full px-4 py-3 rounded bg-white text-gray-800 focus:outline-none">
-                <input type="email" name="email" placeholder="Your Email" class="w-full px-4 py-3 rounded bg-white text-gray-800 focus:outline-none">
-                <input type="text" name="subject" placeholder="Subject" class="w-full px-4 py-3 rounded bg-white text-gray-800 focus:outline-none">
-                <textarea name="message" rows="4" placeholder="Write your enquiry..." class="w-full px-4 py-3 rounded bg-white text-gray-800 focus:outline-none"></textarea>
-                <button type="submit" class="bg-white text-ayur-green px-6 py-3 rounded font-semibold hover:bg-gray-100 transition">Submit Enquiry</button>
-            </form>
-        </div>
-    </div>
-    <div class="max-w-7xl mx-auto mt-12 pt-6 border-t border-gray-500 text-xs text-gray-200 flex flex-col md:flex-row justify-between gap-4">
-        <p>© 2026 Bharat Sanjeevani Ayurveda. All rights reserved.</p>
-        <p>Ancient Wisdom. Modern Vitality.</p>
-    </div>
-</footer>
-
+{% block extra_scripts %}
 <script>
 function reveal() {
     let reveals = document.querySelectorAll(".reveal");
@@ -174,6 +109,4 @@ function reveal() {
 window.addEventListener("scroll", reveal);
 document.addEventListener("DOMContentLoaded", reveal);
 </script>
-
-</body>
-</html>
+{% endblock %}

@@ -1,43 +1,7 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>About Us | Bharat Sanjeevani</title>
-
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-<link href="{% static 'css/home.css' %}" rel="stylesheet">
-</head>
-
-<body class="bg-stone-50 text-gray-800 font-['Inter'] min-h-screen flex flex-col">
-
-<!-- NAVBAR -->
-<nav class="flex justify-between items-center px-8 py-6 max-w-7xl mx-auto w-full">
-    <div class="text-2xl font-bold text-green-800 tracking-tight">
-        BHARAT<span class="font-light text-gray-400">SANJEEVANI</span>
-    </div>
-
-    <div class="hidden md:flex space-x-8 text-sm uppercase tracking-widest font-medium">
-        <a href="{% url 'shop' %}" class="hover:text-gray-500 transition">Shop</a>
-        <a href="{% url 'our_science' %}" class="hover:text-gray-500 transition">Our Science</a>
-        <a href="{% url 'contact' %}" class="hover:text-gray-500 transition">Contact Us</a>
-        <a href="{% url 'about' %}" class="text-green-800 border-b border-green-800 transition">About</a>
-    </div>
-
-    <div class="flex items-center gap-x-2">
-        {% if user.is_authenticated %}
-            <a href="{% url 'profile' %}" class="border border-green-800 px-5 py-2 text-xs uppercase tracking-widest text-green-800 hover:bg-green-800 hover:text-white transition duration-300">Profile</a>
-            <a href="{% url 'cart_view' %}" class="border border-green-800 px-5 py-2 text-xs uppercase tracking-widest text-green-800 hover:bg-green-800 hover:text-white transition duration-300">Cart</a>
-        {% else %}
-            <a href="{% url 'register' %}" class="border border-green-800 px-5 py-2 text-xs uppercase tracking-widest text-green-800 hover:bg-green-800 hover:text-white transition duration-300">Register</a>
-            <a href="{% url 'login' %}" class="border border-green-800 px-5 py-2 text-xs uppercase tracking-widest text-green-800 hover:bg-green-800 hover:text-white transition duration-300">Login</a>
-        {% endif %}
-    </div>
-</nav>
-
+{% block content %}
 <main class="flex-grow flex items-center justify-center">
     <div class="max-w-4xl mx-auto px-8 py-20 text-center">
         <h1 class="text-5xl md:text-7xl font-['Playfair_Display'] text-green-900 mb-8">Our Heritage</h1>
@@ -62,10 +26,4 @@
         </div>
     </div>
 </main>
-
-<footer class="border-t border-gray-200 py-8 text-center text-gray-400 text-sm uppercase tracking-widest mt-auto">
-    &copy; 2026 Bharat Sanjeevani Ayurveda
-</footer>
-
-</body>
-</html>
+{% endblock %}
