@@ -8,7 +8,7 @@
         <!-- Contact Info -->
         <div>
             <h1 class="text-5xl font-['Playfair_Display'] text-green-900 mb-6">Get in Touch</h1>
-            <p class="text-gray-600 leading-relaxed mb-10">
+            <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-10">
                 Whether you have a question about our Ayurvedic formulations, need help finding the right product for your dosha, or simply want to share your wellness journey, we are here for you.
             </p>
 
@@ -19,7 +19,7 @@
                     </div>
                     <div>
                         <p class="text-sm text-gray-400 uppercase tracking-wider font-bold">Email</p>
-                        <p class="text-gray-900 font-medium">namaste@bharatsanjeevani.com</p>
+                        <p class="text-gray-900 dark:text-white font-medium">namaste@bharatsanjeevani.com</p>
                     </div>
                 </div>
 
@@ -29,7 +29,7 @@
                     </div>
                     <div>
                         <p class="text-sm text-gray-400 uppercase tracking-wider font-bold">Phone</p>
-                        <p class="text-gray-900 font-medium">+91 1800 123 4567</p>
+                        <p class="text-gray-900 dark:text-white font-medium">+91 1800 123 4567</p>
                     </div>
                 </div>
 
@@ -39,28 +39,28 @@
                     </div>
                     <div>
                         <p class="text-sm text-gray-400 uppercase tracking-wider font-bold">Address</p>
-                        <p class="text-gray-900 font-medium">108 Ayurveda Marg, Kerala, India</p>
+                        <p class="text-gray-900 dark:text-white font-medium">108 Ayurveda Marg, Kerala, India</p>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Contact Form -->
-        <div class="bg-white dark:bg-gray-800 p-10 rounded-2xl shadow-xl border border-gray-100">
+        <div class="bg-white dark:bg-gray-800 p-10 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700">
             <h3 class="text-2xl font-bold text-green-900 mb-6">Send us a Message</h3>
             <form action="#" method="POST" class="space-y-5">
                 {% csrf_token %}
                 <div>
-                    <label class="block text-sm text-gray-600 mb-2 font-medium">Your Name</label>
-                    <input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-green-700 focus:ring-1 focus:ring-green-700 transition" placeholder="Enter your name">
+                    <label class="block text-sm text-gray-600 dark:text-gray-300 mb-2 font-medium">Your Name</label>
+                    <input type="text" class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 focus:outline-none focus:border-green-700 focus:ring-1 focus:ring-green-700 transition" placeholder="Enter your name">
                 </div>
                 <div>
-                    <label class="block text-sm text-gray-600 mb-2 font-medium">Email Address</label>
-                    <input type="email" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-green-700 focus:ring-1 focus:ring-green-700 transition" placeholder="Enter your email">
+                    <label class="block text-sm text-gray-600 dark:text-gray-300 mb-2 font-medium">Email Address</label>
+                    <input type="email" class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 focus:outline-none focus:border-green-700 focus:ring-1 focus:ring-green-700 transition" placeholder="Enter your email">
                 </div>
                 <div>
-                    <label class="block text-sm text-gray-600 mb-2 font-medium">Message</label>
-                    <textarea rows="4" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-green-700 focus:ring-1 focus:ring-green-700 transition resize-none" placeholder="How can we help you?"></textarea>
+                    <label class="block text-sm text-gray-600 dark:text-gray-300 mb-2 font-medium">Message</label>
+                    <textarea rows="4" class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 focus:outline-none focus:border-green-700 focus:ring-1 focus:ring-green-700 transition resize-none" placeholder="How can we help you?"></textarea>
                 </div>
                 <button type="button" onclick="alert('Message sent successfully! (Dummy form)')" class="w-full bg-green-800 text-white font-semibold py-4 rounded-xl hover:bg-green-900 transition-all duration-300 shadow-md">
                     Send Message

@@ -37,13 +37,13 @@
                             
                             <!-- Price -->
                             <div class="col-span-1 sm:col-span-2 sm:text-center text-gray-600 dark:text-gray-300 font-medium">
-                                <span class="sm:hidden text-xs text-gray-400 dark:text-gray-500 uppercase tracking-wider mr-2">Price:</span>
+                                <span class="sm:hidden text-xs text-gray-400 dark:text-gray-500 dark:text-gray-400 uppercase tracking-wider mr-2">Price:</span>
                                 ₹{{ item.product.price }}
                             </div>
 
                             <!-- Quantity -->
                             <div class="col-span-1 sm:col-span-2 sm:text-center flex items-center sm:justify-center">
-                                <span class="sm:hidden text-xs text-gray-400 dark:text-gray-500 uppercase tracking-wider mr-2">Qty:</span>
+                                <span class="sm:hidden text-xs text-gray-400 dark:text-gray-500 dark:text-gray-400 uppercase tracking-wider mr-2">Qty:</span>
                                 <div class="flex items-center gap-2">
                                     <a href="{% url 'update_cart_item' item.id 'decrease' %}" class="w-6 h-6 flex items-center justify-center bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-200 rounded-full hover:bg-gray-300 dark:hover:bg-gray-500 transition">-</a>
                                     <span class="inline-flex items-center justify-center bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-100 rounded-full h-8 w-8 text-sm font-bold">
@@ -55,7 +55,7 @@
 
                             <!-- Total -->
                             <div class="col-span-1 sm:col-span-2 sm:text-right font-bold text-green-800 dark:text-green-400 text-lg">
-                                <span class="sm:hidden text-xs text-gray-400 dark:text-gray-500 uppercase tracking-wider mr-2">Total:</span>
+                                <span class="sm:hidden text-xs text-gray-400 dark:text-gray-500 dark:text-gray-400 uppercase tracking-wider mr-2">Total:</span>
                                 ₹{{ item.total_price|floatformat:2 }}
                             </div>
                         </div>

@@ -5,16 +5,16 @@
 <!-- PRODUCT DETAIL -->
 <main class="max-w-7xl mx-auto px-8 py-12 md:py-20 min-h-[60vh]">
     <div class="mb-8">
-        <a href="{% url 'home' %}" class="text-sm font-semibold text-gray-500 hover:text-ayur-green transition uppercase tracking-widest">&larr; Back</a>
+        <a href="{% url 'home' %}" class="text-sm font-semibold text-gray-500 dark:text-gray-400 hover:text-ayur-green dark:text-green-500 transition uppercase tracking-widest">&larr; Back</a>
     </div>
-    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden border border-gray-100 flex flex-col md:flex-row">
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden border border-gray-100 dark:border-gray-700 flex flex-col md:flex-row">
         
         <!-- Image Section -->
-        <div class="md:w-1/2 bg-gray-50 p-8 flex items-center justify-center">
+        <div class="md:w-1/2 bg-gray-50 dark:bg-gray-700 p-8 flex items-center justify-center">
             {% if product.image %}
                 <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-auto max-h-[500px] object-contain rounded-xl shadow-sm mix-blend-multiply">
             {% else %}
-                <div class="w-full aspect-square bg-gray-100 rounded-xl flex items-center justify-center border border-gray-200">
+                <div class="w-full aspect-square bg-gray-100 dark:bg-gray-700 rounded-xl flex items-center justify-center border border-gray-200 dark:border-gray-600">
                     <span class="text-gray-400 text-lg">No Image Available</span>
                 </div>
             {% endif %}
@@ -22,25 +22,25 @@
 
         <!-- Detail Section -->
         <div class="md:w-1/2 p-10 md:p-16 flex flex-col justify-center">
-            <h1 class="text-4xl md:text-5xl font-bold mb-4 font-playfair text-gray-900">{{ product.name }}</h1>
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 font-playfair text-gray-900 dark:text-white">{{ product.name }}</h1>
             
-            <p class="text-3xl text-ayur-green font-semibold mb-8">₹{{ product.price }}</p>
+            <p class="text-3xl text-ayur-green dark:text-green-500 font-semibold mb-8">₹{{ product.price }}</p>
             
             <div class="mb-10">
                 <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-4">Description</h3>
-                <p class="text-gray-600 leading-relaxed">{{ product.desc|linebreaksbr }}</p>
+                <p class="text-gray-600 dark:text-gray-300 leading-relaxed">{{ product.desc|linebreaksbr }}</p>
             </div>
             
-            <div class="mt-auto pt-8 border-t border-gray-100">
+            <div class="mt-auto pt-8 border-t border-gray-100 dark:border-gray-700">
                 {% if user.is_authenticated %}
                     <form method="POST" action="{% url 'add_to_cart' product.id %}">
                         {% csrf_token %}
-                        <button type="submit" class="w-full sm:w-auto bg-ayur-green text-white px-12 py-4 rounded-xl hover:bg-[#1a3821] hover:shadow-lg transition-all duration-300 font-semibold uppercase tracking-wider shadow-md transform hover:-translate-y-0.5">
+                        <button type="submit" class="w-full sm:w-auto bg-ayur-green dark:bg-green-700 text-white px-12 py-4 rounded-xl hover:bg-[#1a3821] hover:shadow-lg transition-all duration-300 font-semibold uppercase tracking-wider shadow-md transform hover:-translate-y-0.5">
                             Add to Cart
                         </button>
                     </form>
                 {% else %}
-                    <a href="{% url 'login' %}" class="inline-block w-full sm:w-auto text-center bg-ayur-green text-white px-12 py-4 rounded-xl hover:bg-[#1a3821] hover:shadow-lg transition-all duration-300 font-semibold uppercase tracking-wider shadow-md transform hover:-translate-y-0.5">
+                    <a href="{% url 'login' %}" class="inline-block w-full sm:w-auto text-center bg-ayur-green dark:bg-green-700 text-white px-12 py-4 rounded-xl hover:bg-[#1a3821] hover:shadow-lg transition-all duration-300 font-semibold uppercase tracking-wider shadow-md transform hover:-translate-y-0.5">
                         Login to Add to Cart
                     </a>
                 {% endif %}

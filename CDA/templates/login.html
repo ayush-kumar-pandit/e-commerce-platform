@@ -40,7 +40,7 @@
                         {{ field.label }}
                         <span class="text-red-500">*</span>
                     </label>
-                    <div class="dark:text-gray-900">
+                    <div class="dark:text-gray-900 dark:text-white">
                     {{ field }}
                     </div>
                     {% if field.errors %}
@@ -87,11 +87,11 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
         if (input.value.trim() === '') {
             e.preventDefault();
             input.classList.add('border-red-500');
-            input.classList.remove('border-gray-300');
+            input.classList.remove('border-gray-300 dark:border-gray-600');
             if (fieldError) fieldError.classList.remove('hidden');
         } else {
             input.classList.remove('border-red-500');
-            input.classList.add('border-gray-300');
+            input.classList.add('border-gray-300 dark:border-gray-600');
             if (fieldError) fieldError.classList.add('hidden');
         }
     });
@@ -103,11 +103,11 @@ document.querySelectorAll('#loginForm input').forEach(function(input) {
         const fieldError = this.closest('div').querySelector('.field-error');
         if (this.value.trim() === '') {
             this.classList.add('border-red-500');
-            this.classList.remove('border-gray-300');
+            this.classList.remove('border-gray-300 dark:border-gray-600');
             if (fieldError) fieldError.classList.remove('hidden');
         } else {
             this.classList.remove('border-red-500');
-            this.classList.add('border-gray-300');
+            this.classList.add('border-gray-300 dark:border-gray-600');
             if (fieldError) fieldError.classList.add('hidden');
         }
     });
@@ -116,7 +116,7 @@ document.querySelectorAll('#loginForm input').forEach(function(input) {
         if (this.value.trim() !== '') {
             const fieldError = this.closest('div').querySelector('.field-error');
             this.classList.remove('border-red-500');
-            this.classList.add('border-gray-300');
+            this.classList.add('border-gray-300 dark:border-gray-600');
             if (fieldError) fieldError.classList.add('hidden');
         }
     });

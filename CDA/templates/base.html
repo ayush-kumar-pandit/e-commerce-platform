@@ -63,22 +63,22 @@
 
         {% if user.is_authenticated %}
             <a href="{% url 'profile' %}"
-               class="border border-ayur-green dark:border-green-500 px-5 py-2 text-xs uppercase tracking-widest hover:bg-ayur-green hover:text-white dark:hover:bg-green-500 dark:hover:text-gray-900 transition duration-300">
+               class="border border-ayur-green dark:border-green-500 px-5 py-2 text-xs uppercase tracking-widest hover:bg-ayur-green dark:bg-green-700 hover:text-white dark:hover:bg-green-500 dark:hover:text-gray-900 dark:text-white transition duration-300">
                 Profile
             </a>
 
             <a href="{% url 'cart_view' %}"
-               class="border border-ayur-green dark:border-green-500 px-5 py-2 text-xs uppercase tracking-widest hover:bg-ayur-green hover:text-white dark:hover:bg-green-500 dark:hover:text-gray-900 transition duration-300">
+               class="border border-ayur-green dark:border-green-500 px-5 py-2 text-xs uppercase tracking-widest hover:bg-ayur-green dark:bg-green-700 hover:text-white dark:hover:bg-green-500 dark:hover:text-gray-900 dark:text-white transition duration-300">
                 Cart
             </a>
         {% else %}
             <a href="{% url 'register' %}"
-               class="border border-ayur-green dark:border-green-500 px-5 py-2 text-xs uppercase tracking-widest hover:bg-ayur-green hover:text-white dark:hover:bg-green-500 dark:hover:text-gray-900 transition duration-300">
+               class="border border-ayur-green dark:border-green-500 px-5 py-2 text-xs uppercase tracking-widest hover:bg-ayur-green dark:bg-green-700 hover:text-white dark:hover:bg-green-500 dark:hover:text-gray-900 dark:text-white transition duration-300">
                 Register
             </a>
 
             <a href="{% url 'login' %}"
-               class="border border-ayur-green dark:border-green-500 px-5 py-2 text-xs uppercase tracking-widest hover:bg-ayur-green hover:text-white dark:hover:bg-green-500 dark:hover:text-gray-900 transition duration-300">
+               class="border border-ayur-green dark:border-green-500 px-5 py-2 text-xs uppercase tracking-widest hover:bg-ayur-green dark:bg-green-700 hover:text-white dark:hover:bg-green-500 dark:hover:text-gray-900 dark:text-white transition duration-300">
                 Login
             </a>
         {% endif %}

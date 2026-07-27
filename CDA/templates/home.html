@@ -6,30 +6,30 @@
 <header class="relative max-w-7xl mx-auto px-8 py-16 md:py-24 grid md:grid-cols-2 gap-12 items-center">
 
     <div class="z-10 fade-up">
-        <span class="text-sm uppercase tracking-[0.3em] text-gray-500 mb-4 block underline decoration-gold">
+        <span class="text-sm uppercase tracking-[0.3em] text-gray-500 dark:text-gray-400 mb-4 block underline decoration-gold">
             Rooted in Tradition
         </span>
 
-        <h1 class="text-5xl md:text-7xl mb-6 leading-tight text-ayur-green">
+        <h1 class="text-5xl md:text-7xl mb-6 leading-tight text-ayur-green dark:text-green-500">
             Timeless Wisdom.<br>
             <span class="italic">Modern Vitality.</span>
         </h1>
 
-        <p class="text-lg text-gray-600 mb-8 max-w-md leading-relaxed">
+        <p class="text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-md leading-relaxed">
             Experience the world's oldest healing science, reformulated for the demands of the 21st century.
             Pure, potent, and ethically sourced.
         </p>
 
         <div class="flex space-x-4">
             <a href="{% url 'shop' %}"
-               class="bg-ayur-green text-white px-8 py-4 rounded-sm hover:shadow-xl transition">
+               class="bg-ayur-green dark:bg-green-700 text-white px-8 py-4 rounded-sm hover:shadow-xl transition">
                 Shop Bestsellers
             </a>
         </div>
     </div>
 
     <div class="relative">
-        <div class="absolute -inset-4 bg-ayur-green/5 rounded-full blur-3xl"></div>
+        <div class="absolute -inset-4 bg-ayur-green dark:bg-green-700/5 rounded-full blur-3xl"></div>
 
         <img src="{% static 'images/banner.jpg' %}"
              alt="Ayurvedic Supplement"
@@ -40,42 +40,42 @@
 
 
 <!-- FEATURES -->
-<section class="bg-white dark:bg-gray-800 py-20 border-y border-gray-100">
+<section class="bg-white dark:bg-gray-800 py-20 border-y border-gray-100 dark:border-gray-700">
 
     <div class="max-w-7xl mx-auto px-8 grid md:grid-cols-3 gap-16 text-center">
 
         <div class="reveal border border-transparent shadow-lg rounded-xl p-8 hover:shadow-xl transition">
-            <div class="text-3xl mb-4 italic text-ayur-green">01</div>
+            <div class="text-3xl mb-4 italic text-ayur-green dark:text-green-500">01</div>
 
             <h3 class="text-xl font-bold mb-2 uppercase tracking-tighter">
                 Wild Harvested
             </h3>
 
-            <p class="text-gray-500 text-sm">
+            <p class="text-gray-500 dark:text-gray-400 text-sm">
                 Sourced directly from sustainable farms in the Himalayan foothills.
             </p>
         </div>
 
         <div class="reveal border border-transparent shadow-lg rounded-xl p-8 hover:shadow-xl transition">
-            <div class="text-3xl mb-4 italic text-ayur-green">02</div>
+            <div class="text-3xl mb-4 italic text-ayur-green dark:text-green-500">02</div>
 
             <h3 class="text-xl font-bold mb-2 uppercase tracking-tighter">
                 Bio-Available
             </h3>
 
-            <p class="text-gray-500 text-sm">
+            <p class="text-gray-500 dark:text-gray-400 text-sm">
                 Optimized with modern extraction for maximum nutrient absorption.
             </p>
         </div>
 
         <div class="reveal border border-transparent shadow-lg rounded-xl p-8 hover:shadow-xl transition">
-            <div class="text-3xl mb-4 italic text-ayur-green">03</div>
+            <div class="text-3xl mb-4 italic text-ayur-green dark:text-green-500">03</div>
 
             <h3 class="text-xl font-bold mb-2 uppercase tracking-tighter">
                 Lab Verified
             </h3>
 
-            <p class="text-gray-500 text-sm">
+            <p class="text-gray-500 dark:text-gray-400 text-sm">
                 Every batch is tested for purity, heavy metals, and potency.
             </p>
         </div>
@@ -90,8 +90,8 @@
 
     <div class="flex justify-between items-end mb-12">
         <div>
-            <h2 class="text-4xl text-ayur-green">Daily Rituals</h2>
-            <p class="text-gray-500 italic">
+            <h2 class="text-4xl text-ayur-green dark:text-green-500">Daily Rituals</h2>
+            <p class="text-gray-500 dark:text-gray-400 italic">
                 Curated for your specific constitution.
             </p>
         </div>
@@ -105,29 +105,29 @@
         {% for product in prods %}
             <div class="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-6 product-card reveal">
                 {% if product.image %}
-                <div class="relative w-full aspect-square mb-4 overflow-hidden rounded bg-gray-50">
+                <div class="relative w-full aspect-square mb-4 overflow-hidden rounded bg-gray-50 dark:bg-gray-700">
                     <img src="{{ product.image.url }}"
                          alt="{{ product.name }}"
                          class="object-cover w-full h-full">
                 </div>
                 {% else %}
-                <div class="bg-gray-100 rounded mb-4 aspect-square flex items-center justify-center text-gray-400 text-sm">No Image</div>
+                <div class="bg-gray-100 dark:bg-gray-700 rounded mb-4 aspect-square flex items-center justify-center text-gray-400 text-sm">No Image</div>
                 {% endif %}
 
                 <h3 class="text-xl font-semibold mb-2 truncate" title="{{ product.name }}">
                     {{ product.name }}
                 </h3>
 
-                <p class="text-gray-600 mb-4 line-clamp-2 text-sm" title="{{ product.desc }}">
+                <p class="text-gray-600 dark:text-gray-300 mb-4 line-clamp-2 text-sm" title="{{ product.desc }}">
                     {{ product.desc }}
                 </p>
 
-                <p class="text-ayur-green font-bold mb-4">
+                <p class="text-ayur-green dark:text-green-500 font-bold mb-4">
                     ₹{{ product.price }}
                 </p>
 
                 <a href="{% url 'product_detail' product.id %}"
-                   class="block w-full text-center bg-ayur-green text-white px-5 py-2.5 rounded hover:bg-[#1a3821] hover:shadow-lg transition uppercase tracking-wide text-sm font-semibold">
+                   class="block w-full text-center bg-ayur-green dark:bg-green-700 text-white px-5 py-2.5 rounded hover:bg-[#1a3821] hover:shadow-lg transition uppercase tracking-wide text-sm font-semibold">
                     See More
                 </a>
             </div>
