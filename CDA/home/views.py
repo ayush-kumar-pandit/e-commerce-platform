@@ -1,6 +1,8 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import Q
+from django.contrib import messages
 from .models import Product, ProductImage, OurScience
+from .forms import ReviewForm
 
 
 def product_detail_view(request, id):
@@ -12,9 +14,27 @@ def product_detail_view(request, id):
     # Get all images for this product, ordered by display_order
     images = product.images.all().order_by('display_order')
     
+    # Handle review submission
+    if request.method == 'POST' and request.user.is_authenticated:
+        if 'rating' in request.POST: # Check if it's the review form
+            form = ReviewForm(request.POST)
+            if form.is_valid():
+                review = form.save(commit=False)
+                review.product = product
+                review.user = request.user
+                review.save()
+                messages.success(request, 'Your review has been added successfully!')
+                return redirect('product_detail', id=product.id)
+    else:
+        form = ReviewForm()
+        
+    reviews = product.reviews.all()
+    
     context = {
         'product': product,
         'images': images,
+        'form': form,
+        'reviews': reviews,
     }
     return render(request, "product_detail.html", context)
 
